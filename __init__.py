@@ -23,7 +23,7 @@ def description():
   return "Client for Web Processing Services"
 
 def version():
-  return "2.0.14"
+  return "2.0.15"
 
 def qgisMinimumVersion():
   return "1.5"  
@@ -32,7 +32,7 @@ def qgisMaximumVersion():
   return "2.99"    
 
 def date():
-    return '2015-01-21'
+    return '2015-09-28'
     
 def email():
     return 'horst.duester@sourcepole.ch'
@@ -44,7 +44,7 @@ def icon():
 	return "images/wps-add.png"   
 
 def homepage():
-  return "http://goo.gl/fsqDn"
+  return "https://github.com/sourcepole/qgis-wps-client"
   
 def classFactory(iface):
   from qgswps import QgsWps

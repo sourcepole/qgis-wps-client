@@ -9,7 +9,7 @@
 name=WPS Client
 description=Client for OGC Web Processing Services
 category=Web
-version=2.0.14
+version=2.0.15
 qgisMinimumVersion=1.5
 qgisMaximumVersion=2.99
 class_name=QgsWps
@@ -18,6 +18,9 @@ author=Horst Duester - Sourcepole AG
 email=horst.duester@sourcepole.ch
 
 changelog=
+ Rev. 2.0.15
+   - Bux #12333 fixed
+   - Repository moved to GitHub  Rev. 2.0.14
  Rev. 2.0.14
    - Contributor Enrico De Guidi added
  Rev 2.0.13
@@ -41,6 +44,6 @@ changelog=
    - QGIS 1 / 2 compatibility fixes
    - encoding fixes
 
-homepage=http://goo.gl/fsqDn
+homepage=https://github.com/sourcepole/qgis-wps-client
 tracker=http://hub.qgis.org/projects/qgswps
-repository=https://www.kappasys.ch/svn/wps/trunk
+repository=https://github.com/sourcepole/qgis-wps-client.git
