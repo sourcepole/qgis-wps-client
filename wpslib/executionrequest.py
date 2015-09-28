@@ -274,7 +274,7 @@ class ExecutionRequest(QObject):
         #if self.tools.isMimeTypeVector(mimeType) != None and encoding != "base64":
         self.addExecuteRequestInputStart(identifier)
         
-        self.request += "<wps:ComplexData mimeType=\"%s\" schema=\"%s\"%s>" % (mimeType, schema, encoding)
+        self.request += "<wps:ComplexData mimeType=\"%s\" schema=\"%s\" %s>" % (mimeType, schema, encoding)
         self.request += "<![CDATA["
         self.request += gmldata.replace("> <","><")
 
