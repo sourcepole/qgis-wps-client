@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Project SYSTEM "Project-4.6.dtd">
-<!-- eric4 project file for project QGIS WPS-Plugn -->
-<!-- Saved: 2014-04-23, 12:13:16 -->
-<!-- Copyright (C) 2014 ,  -->
-<Project version="4.6">
+<!DOCTYPE Project SYSTEM "Project-5.1.dtd">
+<!-- eric project file for project QGIS WPS-Plugn -->
+<!-- Saved: 2015-10-28, 09:31:08 -->
+<!-- Copyright (C) 2015 ,  -->
+<Project version="5.1">
   <Language>en</Language>
-  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <Hash>7fd125af20ffa9f486481b1e8f9261f79d700328</Hash>
+  <ProgLanguage mixed="0">Python2</ProgLanguage>
   <ProjectType>Qt4</ProjectType>
   <Description></Description>
   <Version></Version>
   <Author></Author>
   <Email></Email>
   <TranslationPattern>i18n/wps_%language%.ts</TranslationPattern>
+  <Eol index="-1"/>
   <Sources>
     <Source>qgswpsgui.py</Source>
     <Source>Ui_qgswpsgui.py</Source>
@@ -67,14 +69,13 @@
   <Resources>
     <Resource>resources.qrc</Resource>
   </Resources>
-  <Interfaces>
-  </Interfaces>
+  <Interfaces/>
   <Others>
     <Other>metadata.txt</Other>
   </Others>
   <MainScript>qgswps.py</MainScript>
   <Vcs>
-    <VcsType>Subversion</VcsType>
+    <VcsType>None</VcsType>
     <VcsOptions>
       <dict>
         <key>
@@ -187,14 +188,14 @@
     </VcsOtherData>
   </Vcs>
   <FiletypeAssociations>
-    <FiletypeAssociation pattern="*.ui" type="FORMS" />
-    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS" />
-    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
-    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
-    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
-    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS" />
-    <FiletypeAssociation pattern="*.py" type="SOURCES" />
-    <FiletypeAssociation pattern="*.qrc" type="RESOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES"/>
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.py" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS"/>
+    <FiletypeAssociation pattern="*.qrc" type="RESOURCES"/>
+    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS"/>
+    <FiletypeAssociation pattern="*.ui" type="FORMS"/>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS"/>
   </FiletypeAssociations>
 </Project>
