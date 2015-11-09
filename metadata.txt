@@ -21,6 +21,7 @@ about=Sourcepole AG - Linux & Open Source Solutions, Weberstrasse 5, 8004 Zurich
 changelog=
  Rev. 2.0.16
    - Bux #11101 fixed
+   - filtering of service identifier, title or abstract aded
  Rev. 2.0.15
    - Bug #12333 fixed
    - Repository moved to GitHub  Rev. 2.0.14
