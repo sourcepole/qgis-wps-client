@@ -46,6 +46,8 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
     self.fl = fl
     self.setWindowTitle('QGIS WPS-Client '+version())
     self.dlgAbout = DlgAbout(parent)
+    self.filterText = ''
+    self.lneFilter.setText('')
    
   def initQgsWpsGui(self):    
 ##    self.btnOk.setEnabled(False)
@@ -87,6 +89,8 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   @pyqtSignature("on_btnConnect_clicked()")       
   def on_btnConnect_clicked(self):
     self.treeWidget.clear()
+    self.filterText = ''
+    self.lneFilter.setText('')
     selectedWPS = self.cmbConnections.currentText()
     self.server = WpsServer.getServer(selectedWPS)
     self.server.capabilitiesRequestFinished.connect(self.createCapabilitiesGUI)
@@ -115,22 +119,32 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   def on_btnDelete_clicked(self):    
     self.deleteServer.emit(self.cmbConnections.currentText())    
 
-#  @pyqtSignature("on_pushDefaultServer_clicked()")       
-#  def on_pushDefaultServer_clicked(self):    
-#    self.pushDefaultServer.emit()   
-
   def initTreeWPSServices(self, taglist):
+    self.treeWidget.clear()
     self.treeWidget.setColumnCount(self.treeWidget.columnCount())
     itemList = []
+    
     for items in taglist:
-      item = QTreeWidgetItem()
-      ident = pystring(items[0])
-      title = pystring(items[1])
-      abstract = pystring(items[2])
-      item.setText(0,ident.strip())
-      item.setText(1,title.strip())  
-      item.setText(2,abstract.strip())  
-      itemList.append(item)
+
+        if self.filterText == '':
+            item = QTreeWidgetItem()
+            ident = pystring(items[0])
+            title = pystring(items[1])
+            abstract = pystring(items[2])
+            item.setText(0,ident.strip())
+            item.setText(1,title.strip())  
+            item.setText(2,abstract.strip())  
+            itemList.append(item)
+        else:
+            if self.filterText in pystring(items[1]) or self.filterText in pystring(items[0]):
+                item = QTreeWidgetItem()
+                ident = pystring(items[0])
+                title = pystring(items[1])
+                abstract = pystring(items[2])
+                item.setText(0,ident.strip())
+                item.setText(1,title.strip())  
+                item.setText(2,abstract.strip())  
+                itemList.append(item)
     
     self.treeWidget.addTopLevelItems(itemList)
     
@@ -146,7 +160,16 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   def createCapabilitiesGUI(self):
 #      try:
           self.treeWidget.clear()
-          itemListAll = self.server.parseCapabilitiesXML()
-          self.initTreeWPSServices(itemListAll)
+          self.itemListAll = self.server.parseCapabilitiesXML()
+          self.initTreeWPSServices(self.itemListAll)
 #      except:
 #          pass
+    
+  @pyqtSignature("QString")
+  def on_lneFilter_textChanged(self, p0):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        self.filterText = p0
+        self.initTreeWPSServices(self.itemListAll)
