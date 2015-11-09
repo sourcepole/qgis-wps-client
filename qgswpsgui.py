@@ -136,7 +136,7 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
             item.setText(2,abstract.strip())  
             itemList.append(item)
         else:
-            if self.filterText in pystring(items[1]) or self.filterText in pystring(items[0]):
+            if self.filterText in pystring(items[0]) or self.filterText in pystring(items[1]) or self.filterText in pystring(items[2]):
                 item = QTreeWidgetItem()
                 ident = pystring(items[0])
                 title = pystring(items[1])
