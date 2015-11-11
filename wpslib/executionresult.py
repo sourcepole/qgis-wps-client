@@ -82,6 +82,7 @@ class ExecutionResult(QObject):
     """
     
     fetchingResult = pyqtSignal(int)
+    killed = pyqtSignal()
 
     def __init__(self, literalResultCallback, resultFileCallback, successResultCallback, errorResultCallback, streamingHandler, progressBar=None):
         QObject.__init__(self)
@@ -118,7 +119,6 @@ class ExecutionResult(QObject):
         request.setHeader( QNetworkRequest.ContentTypeHeader, "text/xml" )
         self.thePostReply = thePostHttp.post(request, postData)
         self.thePostReply.finished.connect(partial(self.resultHandler, self.thePostReply) )
-        
 
     def finished(self):
         return self._processExecuted and (self.noFilesToFetch == 0)
@@ -137,6 +137,14 @@ class ExecutionResult(QObject):
     def parseResult(self, resultXML):
         self.doc = QtXml.QDomDocument()
         self.doc.setContent(resultXML,  True)
+        resultErrorNodeList = self.doc.elementsByTagNameNS("http://www.opengis.net/ows/1.1","ExceptionReport")
+        if resultErrorNodeList.size() > 0:
+#            for i in range(resultErrorNodeList.size()):
+#              f_element = resultErrorNodeList.at(i).toElement()
+#              exceptionText = pystring(f_element.elementsByTagNameNS("http://www.opengis.net/ows/1.1","ExceptionText").at(0).toElement().text()).strip()
+#              QMessageBox.information(None, 'Process Exception',  exceptionText)
+          return self.errorHandler(resultXML)
+            
         resultNodeList = self.doc.elementsByTagNameNS("http://www.opengis.net/wps/1.0.0","Output")
 
         # TODO: Check if the process does not run correctly before
@@ -144,7 +152,6 @@ class ExecutionResult(QObject):
             for i in range(resultNodeList.size()):
               f_element = resultNodeList.at(i).toElement()
               identifier = pystring(f_element.elementsByTagNameNS("http://www.opengis.net/ows/1.1","Identifier").at(0).toElement().text()).strip()
-
               # Fetch the referenced complex data
               if f_element.elementsByTagNameNS("http://www.opengis.net/wps/1.0.0", "Reference").size() > 0:
                 reference = f_element.elementsByTagNameNS("http://www.opengis.net/wps/1.0.0","Reference").at(0).toElement()
@@ -206,6 +213,7 @@ class ExecutionResult(QObject):
                     self._successResultCallback()
                 else:
                     self.errorHandler(child.text())
+#                    self.errorHandler(resultXML)
             except:
                 return self.errorHandler(resultXML)
 
