@@ -66,7 +66,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
         self.dataStream = None # Used for streaming
         self.setWindowTitle('QGIS WPS-Client '+version())
 
-        self.defaultServers = {'Kappasys WPS':'http://www.kappasys.ch/pywps/pywps.cgi',
+        self.defaultServers = {'Kappasys WPS':'http://www.kappasys.ch/cgi-bin/pywps.cgi',
             'geodati.fmach.it':'http://geodati.fmach.it/zoo/',
             'zoo project':'http://zoo-project.org/wps-foss4g2011/zoo_loader.cgi',
             'zoo project grass':'http://zoo-project.org/cgi-grass/zoo_loader.cgi',
@@ -705,4 +705,5 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
         self.wps.thePostReply.deleteLater()
         self.setStatus('aborted')
         self.killed.emit()
+        pass
 
