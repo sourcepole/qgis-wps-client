@@ -403,7 +403,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
                     useSelected, self.process.getSupportedGMLVersion(listWidgets.objectName()))
                   request.addMultipleGeometryInput(listWidgets.objectName(), self.mimeType, schema, encoding, gmldata, useSelected)
                 elif isMimeTypeVector(self.mimeType) != None or isMimeTypeRaster(self.mimeType) != None:
-                  addMultipleGeometryBase64Input(listWidgets.objectName(), self.mimeType, self.tools.getVLayer(listWidget.text()))
+                  request.addMultipleGeometryBase64Input(listWidgets.objectName(), self.mimeType, self.tools.getVLayer(listWidget.text()))
 
 
             # Literal data as combo box choice #########################################
