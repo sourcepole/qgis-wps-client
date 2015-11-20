@@ -23,7 +23,7 @@ def description():
   return "Client for Web Processing Services"
 
 def version():
-  return "2.1.0"
+  return "2.1.1"
 
 def qgisMinimumVersion():
   return "1.5"  
@@ -32,7 +32,7 @@ def qgisMaximumVersion():
   return "2.99"    
 
 def date():
-    return '2015-11-11'
+    return '2015-11-20'
     
 def email():
     return 'horst.duester@sourcepole.ch'
