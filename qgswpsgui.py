@@ -27,7 +27,7 @@ from qgswpsbookmarks import Bookmarks
 from doAbout import DlgAbout
 
 
-import os, sys, string
+import os, sys, string,  apicompat
 
 class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   MSG_BOX_TITLE = "WPS"
@@ -58,13 +58,20 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
     self.cmbConnections.clear()
     self.cmbConnections.addItems(connections)
     self.treeWidget.clear()
-        
+    
+
+    
+    
     if self.cmbConnections.size() > 0:
       self.btnConnect.setEnabled(True)
       self.btnEdit.setEnabled(True)
       self.btnDelete.setEnabled(True)
-    return 1    
 
+    settings = QSettings()
+    myIndex = pyint(settings.value("WPS-lastConnection/Index",  "Index"))
+    self.cmbConnections.setCurrentIndex(myIndex)
+
+    return 1    
 
   def getBookmark(self, item):
       self.requestDescribeProcess.emit(item.text(0), item.text(1))
@@ -111,9 +118,10 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   def on_btnEdit_clicked(self):    
     self.editServer.emit(self.cmbConnections.currentText())    
 
-  @pyqtSignature("on_cmbConnections_currentIndexChanged()")           
-  def on_cmbConnections_currentIndexChanged(self):
-    pass
+  @pyqtSignature("on_cmbConnections_activated(int)")           
+  def on_cmbConnections_activated(self,  index):
+    settings = QSettings()
+    settings.setValue("WPS-lastConnection/Index", pystring(index))
   
   @pyqtSignature("on_btnDelete_clicked()")       
   def on_btnDelete_clicked(self):    
