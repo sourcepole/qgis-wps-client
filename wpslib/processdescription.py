@@ -404,8 +404,8 @@ class ProcessDescription(QObject):
         self.doc.setContent(self.processXML, True)
 
         processDescription = self.doc.elementsByTagName("ProcessDescription")
-        self.processIdentifier = str(processDescription.at(0).toElement().elementsByTagNameNS("http://www.opengis.net/ows/1.1","Identifier").at(0).toElement().text()).strip()
-        self.processName = str(processDescription.at(0).toElement().elementsByTagNameNS("http://www.opengis.net/ows/1.1","Title").at(0).toElement().text()).strip()  
+        self.processIdentifier = pystring(processDescription.at(0).toElement().elementsByTagNameNS("http://www.opengis.net/ows/1.1","Identifier").at(0).toElement().text()).strip()
+        self.processName = pystring(processDescription.at(0).toElement().elementsByTagNameNS("http://www.opengis.net/ows/1.1","Title").at(0).toElement().text()).strip()  
 
         self.identifier, self.title, self.abstract = getIdentifierTitleAbstractFromElement(self.doc)
         self.inputs = []
