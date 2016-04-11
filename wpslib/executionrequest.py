@@ -105,7 +105,9 @@ import cgi
 
 
 def createTmpBase64(rLayer):
-  try:
+    tmpFile = tempfile.NamedTemporaryFile(prefix="base64", delete=False) 
+    tmpFileName = tmpFile.name
+#    try:
 #      tmpFile = tempfile.NamedTemporaryFile(prefix="base64", delete=False)
 #      infile = open(unicode(rLayer.source()))
 #      tmpFileName = tmpFile.name
@@ -116,10 +118,8 @@ def createTmpBase64(rLayer):
 #      base64String = outfile.read()
 #      outfile.close()
 #      os.remove(tmpFile.name)
-
-        tmpFile = tempfile.NamedTemporaryFile(prefix="base64", delete=False)
+    if rLayer.dataProvider().name() == 'ogr' or rLayer.dataProvider().name() == 'gdal':
         infile = open(rLayer.source())
-        tmpFileName = tmpFile.name
         outfile = tmpFile #open(tmpFileName, 'w')
         base64.encode(infile,outfile)
         outfile.close()
@@ -128,10 +128,14 @@ def createTmpBase64(rLayer):
         base64String = outfile.read()
         outfile.close()
         os.remove(tmpFileName)
+        return base64String
+    else:
+        QMessageBox.critical(None, QApplication.translate("QgsWps",'Error'),  QApplication.translate("QgsWps",'Datatype %s of layer %s is not supported!' % (rLayer.dataProvider().name(),  rLayer.name())))
+        return ''
 
-  except:
-      QMessageBox.critical(None, QApplication.translate("QgsWps","Error"), QApplication.translate("QgsWps","Unable to create temporal file: ") + filename + QApplication.translate("QgsWps"," for base64 encoding") ) 
-  return base64String
+#    except:
+#        QMessageBox.critical(None, QApplication.translate("QgsWps","Error"), QApplication.translate("QgsWps","Unable to create temporal file: ") + filename + QApplication.translate("QgsWps"," for base64 encoding") ) 
+#        return None
 
 def createTmpGML(vLayer, processSelection="False", supportedGML="GML2"):
     if supportedGML == "": # Neither GML, GML2 or GML3 are supported!
