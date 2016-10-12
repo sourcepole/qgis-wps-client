@@ -22,6 +22,7 @@ from PyQt4.QtNetwork import *
 from PyQt4.QtGui import QApplication,QMessageBox
 from PyQt4 import QtXml
 from qgis.core import QgsNetworkAccessManager
+from wps.wpslib.wpsservercookie import WpsServerCookie
 
 
 class WpsServer(QObject):
@@ -94,7 +95,13 @@ class WpsServer(QObject):
             
         url.setUrl(self.baseUrl + myRequest)
         myHttp = QgsNetworkAccessManager.instance()
-        self._theReply = myHttp.get(QNetworkRequest(url))
+        request = QNetworkRequest(url)
+
+        # add cookies in header
+        serverCookie = WpsServerCookie(url)
+        serverCookie.addHeaderCookies(request)
+
+        self._theReply = myHttp.get(request)
         self._theReply.finished.connect(self._capabilitiesRequestFinished)
 
     @pyqtSlot()
@@ -103,6 +110,12 @@ class WpsServer(QObject):
         if self._theReply.error() == 1:
             QMessageBox.information(None, '', QApplication.translate("QgsWpsGui","Connection Refused. Please check your Proxy-Settings"))
             pass
+
+        # get the cookie information from http header
+        cookies = self._theReply.header(QNetworkRequest.SetCookieHeader)
+        serverCookie = WpsServerCookie(self._theReply.url())
+        if cookies is not None:
+            serverCookie.setServerCookies(cookies)
 
         xmlString = self._theReply.readAll().data()
         self._theReply.deleteLater()
