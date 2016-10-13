@@ -19,6 +19,7 @@
 
 from PyQt4.QtCore import QSettings, QObject
 from PyQt4.QtNetwork import QNetworkCookie, QNetworkRequest
+from PyQt4.QtGui import QApplication,QMessageBox
 
 class WpsServerCookie(QObject):
     def __init__(self, processUrl):
@@ -42,17 +43,20 @@ class WpsServerCookie(QObject):
         if cookie_keys is not None:
             for key in cookie_keys:
                 settings.remove(key)
+                QMessageBox.information(None, '', "just remove the cookies of " + self.cookieSettings)
         settings.endGroup()
 
     # add new cookies
     def addServerCookies(self, qt_cookies):
         settings = QSettings()
         settings.beginGroup(self.cookieSettings)
-        for cookie in qt_cookies:
-            if isinstance(cookie, QNetworkCookie):
-                settings.setValue(pystring(cookie.name()), pystring(cookie.value()))
-            else:
-                settings.setValue(pystring(cookie[0]), pystring(cookie[1]))
+        if qt_cookies is not None:
+            for cookie in qt_cookies:
+                if isinstance(cookie, QNetworkCookie):
+                    settings.setValue(pystring(cookie.name()), pystring(cookie.value()))
+                    QMessageBox.information(None, '', "just save " + pystring(cookie.name()) + ": " + pystring(cookie.value()))
+                else:
+                    settings.setValue(pystring(cookie[0]), pystring(cookie[1]))
         settings.endGroup()
 
     # get specified cookie information in setting and contain them in the header when doing http request
@@ -60,27 +64,26 @@ class WpsServerCookie(QObject):
         cookieList = []
         settings = QSettings()
         settings.beginGroup(self.cookieSettings)
-        for key in settings.childKeys():
-            # cookie = QNetworkCookie()
-            # cookie.setName(pystring(key))
-            # cookie.setValue(pystring(settings.value(key)))
-            # cookies.append(cookie)
-            cookieList.append(key + "=" + settings.value(key))
+        childKeys = settings.childKeys()
+        if childKeys is not None:
+            for key in childKeys:
+                # cookie = QNetworkCookie()
+                # cookie.setName(pystring(key))
+                # cookie.setValue(pystring(settings.value(key)))
+                # cookies.append(cookie)
+                cookieList.append(key + "=" + settings.value(key))
         settings.endGroup()
-        return cookieList
+        return ";".join(cookieList)
 
     # check whether the coookie exist
     def checkServerCookies(self):
         settings = QSettings()
         settings.beginGroup(self.cookieSettings)
-        cookie_keys = settings.childKeys()
-        return True if len(cookie_keys) > 0 else False
-
-    # add cookies in the header when doing request
-    def addHeaderCookies(self, request):
-        if self.checkServerCookies():
-            # request.setHeader(QNetworkRequest.CookieHeader, serverCookie.getServerCookies())
-            request.setRawHeader("Cookie", ";".join(self.getServerCookies()))
+        childKeys = settings.childKeys()
+        if childKeys is not None:
+            for key in childKeys:
+                QMessageBox.information(None, '', "the system has already saved " + pystring(key) + ": " + pystring(settings.value(key)))
+        return True if childKeys is not None and len(childKeys) > 0 else False
 
 
 

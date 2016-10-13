@@ -382,7 +382,16 @@ class ProcessDescription(QObject):
 
         # add cookies in header
         serverCookie = WpsServerCookie(url)
-        serverCookie.addHeaderCookies(request)
+        if serverCookie.checkServerCookies():
+            request.setRawHeader("Cookie", serverCookie.getServerCookies())
+
+        cookies = request.header(QNetworkRequest.CookieHeader)
+        if cookies is not None:
+            for cookie in cookies:
+                if isinstance(cookie, QNetworkCookie):
+                    QMessageBox.information(None, '',
+                                            "request with cookies " + pystring(cookie.name()) + pystring(
+                                                cookie.value()))
 
         self._theReply = myHttp.get(request)
         self._theReply.finished.connect(self._describeProcessFinished)
@@ -397,6 +406,7 @@ class ProcessDescription(QObject):
         cookies = self._theReply.header(QNetworkRequest.SetCookieHeader)
         serverCookie = WpsServerCookie(self.processUrl)
         if cookies is not None:
+            QMessageBox.information(None, '', "the first time to use this server")
             serverCookie.setServerCookies(cookies)
 
         self._theReply.deleteLater()

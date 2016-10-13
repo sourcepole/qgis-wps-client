@@ -121,7 +121,16 @@ class ExecutionResult(QObject):
 
         # add cookies in header
         serverCookie = WpsServerCookie(processUrl)
-        serverCookie.addHeaderCookies(request)
+        if serverCookie.checkServerCookies():
+            request.setRawHeader("Cookie", serverCookie.getServerCookies())
+
+        cookies = request.header(QNetworkRequest.CookieHeader)
+        if cookies is not None:
+            for cookie in cookies:
+                if isinstance(cookie, QNetworkCookie):
+                    QMessageBox.information(None, '',
+                                            "request with cookies " + pystring(cookie.name()) + pystring(
+                                                cookie.value()))
 
         self.thePostReply = thePostHttp.post(request, postData)
         self.thePostReply.finished.connect(partial(self.resultHandler, self.thePostReply) )

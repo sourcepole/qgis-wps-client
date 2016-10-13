@@ -36,6 +36,7 @@ from wpslib.executionrequest import ExecutionRequest
 from wpslib.executionrequest import createTmpGML
 from wpslib.executionresult import ExecutionResult
 from urlparse import urlparse
+from wps.wpslib.wpsservercookie import WpsServerCookie
 
 from streaming import Streaming
 
@@ -659,8 +660,14 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
     def deleteServer(self,  name):
         settings = QSettings()
         settings.beginGroup("WPS")
+        baseUrl = pystring(settings.value(name + "/url"))
         settings.remove(name)
         settings.endGroup()
+        # delete related cookies
+        url = QUrl()
+        url.setUrl(baseUrl)
+        serverCookie = WpsServerCookie(url)
+        serverCookie.removeServerCookies()
         self.dlg.initQgsWpsGui()
 
 
