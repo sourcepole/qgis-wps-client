@@ -43,7 +43,6 @@ class WpsServerCookie(QObject):
         if cookie_keys is not None:
             for key in cookie_keys:
                 settings.remove(key)
-                QMessageBox.information(None, '', "just remove the cookies of " + self.cookieSettings)
         settings.endGroup()
 
     # add new cookies
@@ -67,10 +66,6 @@ class WpsServerCookie(QObject):
         childKeys = settings.childKeys()
         if childKeys is not None:
             for key in childKeys:
-                # cookie = QNetworkCookie()
-                # cookie.setName(pystring(key))
-                # cookie.setValue(pystring(settings.value(key)))
-                # cookies.append(cookie)
                 cookieList.append(key + "=" + settings.value(key))
         settings.endGroup()
         return ";".join(cookieList)
@@ -80,9 +75,6 @@ class WpsServerCookie(QObject):
         settings = QSettings()
         settings.beginGroup(self.cookieSettings)
         childKeys = settings.childKeys()
-        if childKeys is not None:
-            for key in childKeys:
-                QMessageBox.information(None, '', "the system has already saved " + pystring(key) + ": " + pystring(settings.value(key)))
         return True if childKeys is not None and len(childKeys) > 0 else False
 
 
