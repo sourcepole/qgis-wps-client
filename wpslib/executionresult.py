@@ -27,6 +27,7 @@ from functools import partial
 from wps.wpslib.processdescription import getFileExtension
 import tempfile,  base64
 import wps.apicompat
+from wps.wpslib.wpsservercookie import WpsServerCookie
 
 
 # Execute result example:
@@ -117,6 +118,12 @@ class ExecutionResult(QObject):
         thePostHttp = QgsNetworkAccessManager.instance()
         request = QNetworkRequest(processUrl)
         request.setHeader( QNetworkRequest.ContentTypeHeader, "text/xml" )
+
+        # add cookies in header
+        serverCookie = WpsServerCookie(processUrl)
+        if serverCookie.checkServerCookies():
+            request.setRawHeader("Cookie", serverCookie.getServerCookies())
+
         self.thePostReply = thePostHttp.post(request, postData)
         self.thePostReply.finished.connect(partial(self.resultHandler, self.thePostReply) )
 

@@ -26,6 +26,7 @@ from wpsserver import WpsServer
 from collections import namedtuple
 import os
 import wps.apicompat
+from wps.wpslib.wpsservercookie import WpsServerCookie
 
 
 # Process description example:
@@ -377,7 +378,14 @@ class ProcessDescription(QObject):
 
         url = self.requestUrl()
         myHttp = QgsNetworkAccessManager.instance()
-        self._theReply = myHttp.get(QNetworkRequest(url))
+        request = QNetworkRequest(url)
+
+        # add cookies in header
+        serverCookie = WpsServerCookie(url)
+        if serverCookie.checkServerCookies():
+            request.setRawHeader("Cookie", serverCookie.getServerCookies())
+
+        self._theReply = myHttp.get(request)
         self._theReply.finished.connect(self._describeProcessFinished)
 
     @pyqtSlot()
@@ -385,6 +393,14 @@ class ProcessDescription(QObject):
         # Receive the XML process description
         self.processUrl = self._theReply.url()
         self.processXML = self._theReply.readAll().data()
+
+        # get the cookie information from http header
+        cookies = self._theReply.header(QNetworkRequest.SetCookieHeader)
+        serverCookie = WpsServerCookie(self.processUrl)
+        if cookies is not None:
+            QMessageBox.information(None, '', "the first time to use this server")
+            serverCookie.setServerCookies(cookies)
+
         self._theReply.deleteLater()
         qDebug(self.processXML)
         self._parseProcessXML()
