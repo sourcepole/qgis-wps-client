@@ -17,9 +17,8 @@
   ***************************************************************************/
 """
 
-from PyQt4.QtCore import QSettings, QObject
+from PyQt4.QtCore import QSettings, QObject, QDateTime
 from PyQt4.QtNetwork import QNetworkCookie, QNetworkRequest
-from PyQt4.QtGui import QApplication,QMessageBox
 
 class WpsServerCookie(QObject):
     def __init__(self, processUrl):
@@ -51,11 +50,11 @@ class WpsServerCookie(QObject):
         settings.beginGroup(self.cookieSettings)
         if qt_cookies is not None:
             for cookie in qt_cookies:
-                if isinstance(cookie, QNetworkCookie):
-                    settings.setValue(pystring(cookie.name()), pystring(cookie.value()))
-                    QMessageBox.information(None, '', "just save " + pystring(cookie.name()) + ": " + pystring(cookie.value()))
-                else:
-                    settings.setValue(pystring(cookie[0]), pystring(cookie[1]))
+                if cookie.expirationDate() > QDateTime.currentDateTime():
+                    if isinstance(cookie, QNetworkCookie):
+                        settings.setValue(pystring(cookie.name()), pystring(cookie.value()))
+                    else:
+                        settings.setValue(pystring(cookie[0]), pystring(cookie[1]))
         settings.endGroup()
 
     # get specified cookie information in setting and contain them in the header when doing http request
@@ -76,10 +75,3 @@ class WpsServerCookie(QObject):
         settings.beginGroup(self.cookieSettings)
         childKeys = settings.childKeys()
         return True if childKeys is not None and len(childKeys) > 0 else False
-
-
-
-
-
-
-
