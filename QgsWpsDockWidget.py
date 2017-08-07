@@ -67,10 +67,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
         self.dataStream = None # Used for streaming
         self.setWindowTitle('QGIS WPS-Client '+version())
 
-        self.defaultServers = {'Kappasys WPS':'http://www.kappasys.ch/cgi-bin/pywps.cgi',
-            'geodati.fmach.it':'http://geodati.fmach.it/zoo/',
-            'zoo project':'http://zoo-project.org/wps-foss4g2011/zoo_loader.cgi',
-            'zoo project grass':'http://zoo-project.org/cgi-grass/zoo_loader.cgi',
+        self.defaultServers = {'Kappasys WPS':'https://kappasys.ch/cgi-bin/pywps.cgi',
             '52 North':'http://geoprocessing.demo.52north.org:8080/wps/WebProcessingService'
             }
 

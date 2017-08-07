@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project QGIS WPS-Plugn -->
-<!-- Saved: 2015-12-22, 11:21:47 -->
-<!-- Copyright (C) 2015 ,  -->
+<!-- Saved: 2016-10-22, 18:07:24 -->
+<!-- Copyright (C) 2016 ,  -->
 <Project version="5.1">
   <Language>en</Language>
   <Hash>7fd125af20ffa9f486481b1e8f9261f79d700328</Hash>
@@ -15,48 +15,48 @@
   <TranslationPattern>i18n/wps_%language%.ts</TranslationPattern>
   <Eol index="-1"/>
   <Sources>
-    <Source>qgswpsgui.py</Source>
-    <Source>qgswpsdescribeprocessgui.py</Source>
-    <Source>__init__.py</Source>
-    <Source>qgswps.py</Source>
-    <Source>ui_qgswpsdescribeprocess.py</Source>
-    <Source>qgswpstools.py</Source>
-    <Source>qgswpserrormsggui.py</Source>
-    <Source>qgsnewhttpconnectionbasegui.py</Source>
     <Source>QgsWpsDockWidget.py</Source>
-    <Source>resources_rc.py</Source>
+    <Source>__init__.py</Source>
     <Source>doAbout.py</Source>
+    <Source>qgsnewhttpconnectionbasegui.py</Source>
+    <Source>qgswps.py</Source>
     <Source>qgswpsbookmarks.py</Source>
-    <Source>wpslib/processdescription.py</Source>
+    <Source>qgswpsdescribeprocessgui.py</Source>
+    <Source>qgswpserrormsggui.py</Source>
+    <Source>qgswpsgui.py</Source>
+    <Source>qgswpstools.py</Source>
+    <Source>resources_rc.py</Source>
+    <Source>sextantewps/AddNewWpsAction.py</Source>
+    <Source>sextantewps/WpsAlgorithm.py</Source>
+    <Source>sextantewps/WpsAlgorithmProvider.py</Source>
+    <Source>sextantewps/WpsServerAction.py</Source>
+    <Source>sextantewps/__init__.py</Source>
+    <Source>streaming.py</Source>
+    <Source>ui_qgswpsdescribeprocess.py</Source>
     <Source>wpslib/__init__.py</Source>
     <Source>wpslib/executionrequest.py</Source>
     <Source>wpslib/executionresult.py</Source>
+    <Source>wpslib/processdescription.py</Source>
     <Source>wpslib/wpsserver.py</Source>
-    <Source>sextantewps/__init__.py</Source>
-    <Source>sextantewps/WpsAlgorithmProvider.py</Source>
-    <Source>sextantewps/AddNewWpsAction.py</Source>
-    <Source>sextantewps/WpsServerAction.py</Source>
-    <Source>sextantewps/WpsAlgorithm.py</Source>
-    <Source>streaming.py</Source>
   </Sources>
   <Forms>
-    <Form>qgsnewhttpconnectionbase.ui</Form>
-    <Form>qgswpsgui.ui</Form>
-    <Form>qgswpsdescribeprocessgui.ui</Form>
-    <Form>QgsWpsDockWidget.ui</Form>
-    <Form>qgswpserrorgui.ui</Form>
     <Form>QgsWpsAbout.ui</Form>
+    <Form>QgsWpsDockWidget.ui</Form>
+    <Form>qgsnewhttpconnectionbase.ui</Form>
     <Form>qgswpsbookmarks.ui</Form>
+    <Form>qgswpsdescribeprocessgui.ui</Form>
+    <Form>qgswpserrorgui.ui</Form>
+    <Form>qgswpsgui.ui</Form>
   </Forms>
   <Translations>
     <Translation>i18n/wps_de.qm</Translation>
     <Translation>i18n/wps_de.ts</Translation>
     <Translation>i18n/wps_fr.qm</Translation>
     <Translation>i18n/wps_fr.ts</Translation>
+    <Translation>i18n/wps_it.qm</Translation>
+    <Translation>i18n/wps_it.ts</Translation>
     <Translation>i18n/wps_ru.qm</Translation>
     <Translation>i18n/wps_ru.ts</Translation>
-    <Translation>i18n/wps_it.ts</Translation>
-    <Translation>i18n/wps_it.qm</Translation>
   </Translations>
   <Resources>
     <Resource>resources.qrc</Resource>
@@ -67,7 +67,7 @@
   </Others>
   <MainScript>qgswps.py</MainScript>
   <Vcs>
-    <VcsType>None</VcsType>
+    <VcsType>Git</VcsType>
     <VcsOptions>
       <dict>
         <key>
