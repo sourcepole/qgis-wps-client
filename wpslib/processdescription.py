@@ -264,8 +264,8 @@ def allowedValues(aValues):
 
        try:
           for n in range(int(min_val), int(max_val) + 1):
-              myVal = pystring()
-              myVal.append(str(n))
+              myVal = pystring(str(n))
+              #myVal.append(str(n))
               valList.append(myVal)
        except:
            QMessageBox.critical(None, QApplication.translate("QgsWps", "Error"), QApplication.translate("QgsWps", "Maximum allowed Value is too large"))
