@@ -16,36 +16,44 @@
   *                                                                         *
   ***************************************************************************/
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
-from PyQt4 import QtXml
-from PyQt4.QtNetwork import *
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
+from qgis.PyQt.QtNetwork import *
+from qgis.PyQt import QtXml
 from qgis.core import *
 from . import version
-from qgswpsgui import QgsWpsGui
-from qgswpsdescribeprocessgui import QgsWpsDescribeProcessGui
-from qgswpstools import QgsWpsTools
-from qgsnewhttpconnectionbasegui import QgsNewHttpConnectionBaseGui
-from wpslib.wpsserver import WpsServer
-from wpslib.processdescription import ProcessDescription
-from wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster,isMimeTypeText,isMimeTypeFile,isMimeTypePlaylist
-from wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster,isMimeTypeText,isMimeTypeFile
-from wpslib.processdescription import StringInput, TextInput, SelectionInput, VectorInput, MultipleVectorInput, RasterInput, MultipleRasterInput, FileInput, MultipleFileInput, ExtentInput, CrsInput, VectorOutput, RasterOutput, StringOutput
-from wpslib.executionrequest import ExecutionRequest
-from wpslib.executionrequest import createTmpGML
-from wpslib.executionresult import ExecutionResult
-from urlparse import urlparse
-from wps.wpslib.wpsservercookie import WpsServerCookie
+from .qgswpsgui import QgsWpsGui
+from .qgswpsdescribeprocessgui import QgsWpsDescribeProcessGui
+from .qgswpstools import QgsWpsTools
+from .qgsnewhttpconnectionbasegui import QgsNewHttpConnectionBaseGui
+from .wpslib.wpsserver import WpsServer
+from .wpslib.processdescription import ProcessDescription
+from .wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster,isMimeTypeText,isMimeTypeFile,isMimeTypePlaylist
+from .wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster,isMimeTypeText,isMimeTypeFile
+from .wpslib.processdescription import StringInput, TextInput, SelectionInput, VectorInput, MultipleVectorInput, RasterInput, MultipleRasterInput, FileInput, MultipleFileInput, ExtentInput, CrsInput, VectorOutput, RasterOutput, StringOutput
+from .wpslib.executionrequest import ExecutionRequest
+from .wpslib.executionrequest import createTmpGML
+from .wpslib.executionresult import ExecutionResult
+from urllib.parse import urlparse
+from .wpslib.wpsservercookie import WpsServerCookie
 
-from streaming import Streaming
+from .streaming import Streaming
 
-import resources_rc,  string
-import apicompat
+from . import resources_rc
+import string
+from .apicompat.sipv2.compat import pystring
 
 DEBUG = False
 
-from Ui_QgsWpsDockWidget import Ui_QgsWpsDockWidget
+from .Ui_QgsWpsDockWidget import Ui_QgsWpsDockWidget
 
 class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
     """
@@ -533,7 +541,9 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
     def streamingHandler(self, encoding, playlistUrl):
         """ Handle response form streaming based processes """
         mimeTypePlaylist, self.mimeType = self.mimeType.split("+")
-        print playlistUrl
+        # fix_print_with_import
+        # fix_print_with_import
+        print(playlistUrl)
 
         # Get number of chunks (Only for Output streaming based WPSs)
         chunks=0
@@ -547,7 +557,8 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
                 if lineEdit.objectName() == "chunksByRow" or lineEdit.objectName() == "chunksByColumn":
                     chunks = chunks*int(lineEdit.text())
 
-        print "No. of chunks:",chunks
+        # fix_print_with_import
+        print("No. of chunks:",chunks)
 
         # Streaming handler
         self.dataStream = Streaming(self, self.iface, chunks, playlistUrl, self.mimeType, encoding)
@@ -690,7 +701,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
 
     def pushDefaultServer(self):
         settings = QSettings()
-        for k,v in self.defaultServers.iteritems():
+        for k,v in self.defaultServers.items():
             myURL = urlparse(str(v))
             mySettings = "/WPS/" + k
 #    settings.setValue("WPS/connections/selected", QVariant(name) )

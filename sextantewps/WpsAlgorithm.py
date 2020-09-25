@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from builtins import str
 from sextante.core.GeoAlgorithm import GeoAlgorithm
 from sextante.core.Sextante import Sextante
 from sextante.core.QGisLayers import QGisLayers
@@ -25,9 +27,9 @@ from wps.wpslib.processdescription import StringInput, TextInput, SelectionInput
 from wps.wpslib.executionrequest import ExecutionRequest
 from wps.wpslib.executionrequest import createTmpGML
 from wps.wpslib.executionresult import ExecutionResult
-from PyQt4 import QtGui
+from qgis.PyQt import QtGui
 from PyQt4.QtCore import *
-from PyQt4.QtGui import qApp,QApplication,QMessageBox
+from qgis.PyQt.QtWidgets import qApp, QApplication, QMessageBox
 import os
 
 class WpsAlgorithm(GeoAlgorithm):
@@ -65,7 +67,7 @@ class WpsAlgorithm(GeoAlgorithm):
         self.process.loadDescription(self.wpsDescriptionFolder())
 
     def wpsDescriptionFolder(self):
-        from WpsAlgorithmProvider import WpsAlgorithmProvider
+        from .WpsAlgorithmProvider import WpsAlgorithmProvider
         return WpsAlgorithmProvider.WpsDescriptionFolder()
 
     def getProcessDescription(self):

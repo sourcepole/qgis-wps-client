@@ -16,14 +16,17 @@
   *                                                                         *
   ***************************************************************************/
 """
+from __future__ import absolute_import
 # Import the PyQt and the QGIS libraries
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from builtins import object
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
 from qgis.core import *
-from QgsWpsDockWidget import QgsWpsDockWidget
-from wps import version
-from doAbout import DlgAbout
-import apicompat
+from .QgsWpsDockWidget import QgsWpsDockWidget
+from . import version
+from .doAbout import DlgAbout
+from .apicompat.sipv2.compat import pystring
 
 SEXTANTE_SUPPORT = False
 try:
@@ -34,13 +37,13 @@ except ImportError:
     pass
 
 # initialize Qt resources from file resources.py
-import resources_rc
+from . import resources_rc
 
 
 DEBUG = False
 
 # Our main class for the plugin
-class QgsWps:
+class QgsWps(object):
   MSG_BOX_TITLE = "WPS Client"
   
   def __init__(self, iface):

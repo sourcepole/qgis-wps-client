@@ -17,17 +17,19 @@
   ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
-from PyQt4.QtGui import QApplication,QMessageBox
-from PyQt4 import QtXml
-from PyQt4.QtXmlPatterns import QXmlQuery
+from builtins import range
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtNetwork import *
+from qgis.PyQt.QtXml import *
+from qgis.PyQt.QtWidgets import QApplication, QMessageBox
+from qgis.PyQt import QtXml
 from qgis.core import QgsNetworkAccessManager
 from functools import partial
-from wps.wpslib.processdescription import getFileExtension
-import tempfile,  base64
-import wps.apicompat
-from wps.wpslib.wpsservercookie import WpsServerCookie
+from .processdescription import getFileExtension
+import tempfile
+import base64
+from .wpsservercookie import WpsServerCookie
+from ..apicompat.sipv2.compat import pystring
 
 
 # Execute result example:

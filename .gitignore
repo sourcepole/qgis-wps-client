@@ -3,3 +3,5 @@
 *.e6p
 .eric6project/
 *.pyc
+tmp
+.idea

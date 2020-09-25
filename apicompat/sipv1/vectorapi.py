@@ -19,12 +19,13 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 # Import the PyQt and QGIS libraries
 from PyQt4.QtCore import *
 from qgis.core import *
 
 
-from decorators import *
+from .decorators import *
 
 def vectorapiv1():
   return not hasattr(QgsVectorLayer, 'getFeatures')

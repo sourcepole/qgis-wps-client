@@ -16,14 +16,19 @@
   *                                                                         *
   ***************************************************************************
 """
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
 from qgis.core import *
-from wps import version
-from Ui_qgsnewhttpconnectionbase import Ui_QgsNewHttpConnectionBase
-from qgswpsgui import QgsWpsGui
-from urlparse import urlparse
+from . import version
+from .Ui_qgsnewhttpconnectionbase import Ui_QgsNewHttpConnectionBase
+from .qgswpsgui import QgsWpsGui
+from urllib.parse import urlparse
 import os, sys, string
+from .apicompat.sipv2.compat import pystring
 
 class QgsNewHttpConnectionBaseGui(QDialog,  QObject, Ui_QgsNewHttpConnectionBase):
   MSG_BOX_TITLE = "WPS"
@@ -34,8 +39,7 @@ class QgsNewHttpConnectionBaseGui(QDialog,  QObject, Ui_QgsNewHttpConnectionBase
     self.flags = fl
     self.setupUi(self)
     self.setWindowTitle('QGIS WPS-Client '+version())
-    
-  @pyqtSignature("on_buttonBox_accepted()")       
+
   def on_buttonBox_accepted(self):
     settings = QSettings()
     myURL = urlparse(str(self.txtUrl.text()))

@@ -18,18 +18,23 @@ email                : geotux_tuxman@linuxmail.org
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QColor, QMessageBox
-from PyQt4.QtNetwork import QNetworkRequest, QNetworkAccessManager
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import QColor
+from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtNetwork import QNetworkRequest
 from qgis.core import (QgsNetworkAccessManager, QgsVectorLayer, QgsRasterLayer, 
-                        QgsMapLayerRegistry, QgsFeature, QgsGeometry)
+                        QgsProject, QgsFeature, QgsGeometry)
 from qgis.gui import QgsRubberBand, QgsVertexMarker
 
-from wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster
-from wpslib.executionresult import decodeBase64
+from .wpslib.processdescription import getFileExtension,isMimeTypeVector,isMimeTypeRaster
+from .wpslib.executionresult import decodeBase64
 
 from functools import partial
-import apicompat
+from . import apicompat
+from .apicompat.sipv2.compat import pystring, pystringlist
 import tempfile
 import os, platform 
 import glob
@@ -84,9 +89,9 @@ class Streaming(QObject):
         # Other objects
         self.timer = QTimer()  
         self.timer.setInterval(1 * 1000) # 1 second
-        self.QNAM4Playlist = QNetworkAccessManager()
-        self.QNAM4Chunks = QNetworkAccessManager()
-        self.QNAM4Exception = QNetworkAccessManager()
+        self.QNAM4Playlist = QgsNetworkAccessManager()
+        self.QNAM4Chunks = QgsNetworkAccessManager()
+        self.QNAM4Exception = QgsNetworkAccessManager()
        
         # SIGNAL/SLOT connections
         self.playlistHandled.connect(self.fetchChunks)
@@ -116,7 +121,9 @@ class Streaming(QObject):
         self.QNAM4Playlist.finished.disconnect(self.handlePlaylist)    
         self.QNAM4Chunks.finished.disconnect(self.handleChunk) 
         self.removeTempGeometry(self.__geometryType)  
-        if self.DEBUG: print "Stop streaming!" 
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print("Stop streaming!")
         
     
     def validateCompletedStream(self):
@@ -146,12 +153,16 @@ class Streaming(QObject):
         
         # Parse URLs only if there is new data in the reply
         if reply.bytesAvailable() > self.__bytesInlastReply:
-            if self.DEBUG: print " Parsing the playlist..."
+            if self.DEBUG: # fix_print_with_import
+                # fix_print_with_import
+                print(" Parsing the playlist...")
             startFrom = reply.bytesAvailable() - self.__bytesInlastReply # Delta in bytes
             self.__bytesInlastReply = reply.bytesAvailable()
             newURLs = self.parseURLs(reply, startFrom)
         else: 
-            if self.DEBUG: print " No new data in the playlist..."
+            if self.DEBUG: # fix_print_with_import
+                # fix_print_with_import
+                print(" No new data in the playlist...")
             newURLs = {} 
 
         # Store new URLs    
@@ -160,17 +171,23 @@ class Streaming(QObject):
             if self.chunks:
                 self.parent.progressBar.setRange(0,self.chunks)
         
-        if self.DEBUG: print str(self.__loadedChunks) + " chunks loaded" + ((" out of " + str(self.chunks)) if self.chunks else "")
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print(str(self.__loadedChunks) + " chunks loaded" + ((" out of " + str(self.chunks)) if self.chunks else ""))
         
         # If not complete, make additional calls
         if not self.validateCompletedStream():
             if not self.timer.isActive():
                 self.timer.start()
-                if self.DEBUG: print "Timer started..."
+                if self.DEBUG: # fix_print_with_import
+                    # fix_print_with_import
+                    print("Timer started...")
         else:
             self.timer.stop() 
             self.QNAM4Playlist.finished.disconnect(self.handlePlaylist)    
-            if self.DEBUG: print "Playlist finished!" 
+            if self.DEBUG: # fix_print_with_import
+                # fix_print_with_import
+                print("Playlist finished!")
             
             if self.allChunksDelivered():
                 self.finishLoading()   
@@ -201,7 +218,9 @@ class Streaming(QObject):
                     if self.__endTag in data: 
                         self.__playlistFinished = True 
                     elif self.__exceptionTag in data:
-                        if self.DEBUG: print "Exception found!"
+                        if self.DEBUG: # fix_print_with_import
+                            # fix_print_with_import
+                            print("Exception found!")
                         self.__exceptionFound = True
                         self.__exceptionUrl = data.split(":",1)[1].strip()
                 else: 
@@ -227,7 +246,9 @@ class Streaming(QObject):
                   
     
     def handleErrors(self, error): # TODO connect it
-        if self.DEBUG: print "ERROR!!!", error
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print("ERROR!!!", error)
     
     
     def fetchException(self):
@@ -265,7 +286,9 @@ class Streaming(QObject):
             self.urlReady.emit(encoding, chunkId, reDir.toString())
             return
 
-        if self.DEBUG: print "GET chunk", chunkId  
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print("GET chunk", chunkId)
 
         # Update progressBar        
         if self.chunks:
@@ -292,7 +315,9 @@ class Streaming(QObject):
             resultFile = tmpFile.name
             
         # Finally, load the data
-        if self.DEBUG: print "READY to be loaded (", resultFile, ", chunkId:", chunkId, ")"
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print("READY to be loaded (", resultFile, ", chunkId:", chunkId, ")")
         self.dataReady.emit(resultFile, chunkId) # SLOT: loadData  
       
         
@@ -309,7 +334,7 @@ class Streaming(QObject):
                 self.__geometryType = geometryTypes[vlayer.geometryType()]
                 self.__bGeomMulti = vlayer.wkbType() in [4,5,6,11,12,13]
                 self.__memoryLayer = QgsVectorLayer(self.__geometryType,"Streamed data","memory")
-                self.__memoryLayer.dataProvider().addAttributes(vlayer.pendingFields().values())
+                self.__memoryLayer.dataProvider().addAttributes(list(vlayer.pendingFields().values()))
                 self.__memoryLayer.updateFieldMap()            
 
             provider = vlayer.dataProvider()
@@ -318,7 +343,9 @@ class Streaming(QObject):
             
             # Visualize temporal geometries during the downloading process
             # Don't add temporal geometries if last chunk
-            if self.DEBUG: print "Loaded chunkId:",chunkId           
+            if self.DEBUG: # fix_print_with_import
+                # fix_print_with_import
+                print("Loaded chunkId:",chunkId)
             res = self.__memoryLayer.dataProvider().addFeatures( [feat for feat in vlayer] )
             self.__deliveredChunks += 1      
             
@@ -342,7 +369,7 @@ class Streaming(QObject):
                 self.__groupIndex = self.__legend.addGroup("Streamed-raster")
                 
             rLayer = QgsRasterLayer(resultFile, "raster_"+str(chunkId))
-            bLoaded = QgsMapLayerRegistry.instance().addMapLayer(rLayer)
+            bLoaded = QgsProject.instance().addMapLayer(rLayer)
             self.stretchRaster(rLayer)
             self.__legend.moveLayer(rLayer, self.__groupIndex + 1)
             
@@ -354,12 +381,14 @@ class Streaming(QObject):
 
     def finishLoading(self):
         """ Finish the loading process, load the definite assembled layer """
-        if self.DEBUG: print "DONE!"
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print("DONE!")
             
         if not self.__bFirstChunk:
             if isMimeTypeVector(self.mimeType, True) != None:
                 self.removeTempGeometry(self.__geometryType)   
-                QgsMapLayerRegistry.instance().addMapLayer(self.__memoryLayer)    
+                QgsProject.instance().addMapLayer(self.__memoryLayer)    
             
             elif isMimeTypeRaster(self.mimeType, True) != None:
                 self.parent.lblProcess.setText("All tiles are loaded. Merging them...")
@@ -367,8 +396,7 @@ class Streaming(QObject):
                 # Generate gdal virtual raster 
                 # Code adapted from GdalTools (C) 2009 by L. Masini and G. Sucameli (Faunalia)
                 self.process = QProcess(self)
-                self.connect(self.process, SIGNAL("finished(int, QProcess::ExitStatus)"), 
-                    self.loadVirtualRaster)
+                self.process.finished.connect(self.loadVirtualRaster)
                 #self.setProcessEnvironment(self.process) Required in Windows?
                 cmd = "gdalbuildvrt"
                 arguments = pystringlist()
@@ -399,7 +427,9 @@ class Streaming(QObject):
             self.__tmpGeometry[chunkId] = QgsRubberBand(self.iface.mapCanvas(), True)
             self.__tmpGeometry[chunkId].setColor( QColor( 0,255,0,255 ) )
             self.__tmpGeometry[chunkId].setWidth( 2 )
-            if self.DEBUG: print "rubberBand created"
+            if self.DEBUG: # fix_print_with_import
+                # fix_print_with_import
+                print("rubberBand created")
         elif geometryType == "LineString":
             self.__tmpGeometry[chunkId] = QgsRubberBand(self.iface.mapCanvas(), False)
             self.__tmpGeometry[chunkId].setColor( QColor( 255,121,48,255 ) )
@@ -426,11 +456,11 @@ class Streaming(QObject):
     def removeTempGeometry(self, geometryType):
         """ Remove rubber bands or vertex objects from the map """
         if geometryType == "Polygon" or geometryType == "LineString":
-            for chunkId in self.__tmpGeometry.keys():
+            for chunkId in list(self.__tmpGeometry.keys()):
                 self.iface.mapCanvas().scene().removeItem(self.__tmpGeometry[chunkId])
                 del self.__tmpGeometry[chunkId]
         elif geometryType == "Point": 
-            for chunkId in self.__tmpGeometry.keys():       
+            for chunkId in list(self.__tmpGeometry.keys()):       
                 if len( self.__tmpGeometry[chunkId] ) > 0:
                     for vertex in self.__tmpGeometry[chunkId]:
                         self.iface.mapCanvas().scene().removeItem(vertex)
@@ -464,7 +494,7 @@ class Streaming(QObject):
         if exitCode == 0:
             self.__legend.setGroupVisible( self.__groupIndex, False )
             rLayer = QgsRasterLayer(self.__virtualFile, "virtual")
-            bLoaded = QgsMapLayerRegistry.instance().addMapLayer(rLayer)
+            bLoaded = QgsProject.instance().addMapLayer(rLayer)
             self.stretchRaster(rLayer)
         self.process.kill()
 
@@ -481,11 +511,13 @@ class Streaming(QObject):
             "PATH" : self.getGdalBinPath(), 
             "PYTHONPATH" : self.getGdalPymodPath()
         }
-        if self.DEBUG: print envvar_list
+        if self.DEBUG: # fix_print_with_import
+            # fix_print_with_import
+            print(envvar_list)
 
         sep = os.pathsep
 
-        for name, val in envvar_list.iteritems():
+        for name, val in envvar_list.items():
             if val == None or val == "":
                 continue
 

@@ -16,12 +16,13 @@
   *                                                                         *
   ***************************************************************************/
 """
+from __future__ import absolute_import
 
-from PyQt4.QtGui import QDialog
+from qgis.PyQt.QtWidgets import QDialog
 from PyQt4.QtCore import pyqtSignature
 from wps import version
 
-from Ui_qgswpserrormsggui import Ui_Dialog
+from .Ui_qgswpserrormsggui import Ui_Dialog
 
 class QgsWpsErrorMsgGui(QDialog, Ui_Dialog):
     """

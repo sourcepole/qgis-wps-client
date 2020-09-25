@@ -17,13 +17,14 @@
   ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4 import QtXml
-from PyQt4.QtGui import QApplication,QMessageBox
-from PyQt4.QtSql import *
-from qgis.core import QgsVectorFileWriter,  QgsDataSourceURI
+from builtins import str
+from qgis.PyQt.QtCore import *
+from qgis.PyQt import QtXml
+from qgis.PyQt.QtWidgets import QApplication, QMessageBox
+from qgis.PyQt.QtSql import *
+from qgis.core import QgsVectorFileWriter,  QgsDataSourceUri
 import os, sys, string, tempfile, base64
-import wps.apicompat
+from ..apicompat.sipv2.compat import pystring
 import cgi
 
 
@@ -184,7 +185,7 @@ def createTmpGML(vLayer, processSelection="False", supportedGML="GML2"):
     return pystring(gmlString).strip()
 
 def getDBEncoding(layerProvider):
-    dbConnection = QgsDataSourceURI(layerProvider.dataSourceUri())
+    dbConnection = QgsDataSourceUri(layerProvider.dataSourceUri())
     db = QSqlDatabase.addDatabase("QPSQL","WPSClient")
     db.setHostName(dbConnection.host())
     db.setDatabaseName(dbConnection.database())
@@ -351,7 +352,7 @@ class ExecutionRequest(QObject):
 
     def addLiteralDataInput(self, identifier, text):
         self.addExecuteRequestInputStart(identifier)
-        self.request += "<wps:LiteralData>"+htmlescape(unicode(text))+"</wps:LiteralData>\n"
+        self.request += "<wps:LiteralData>"+htmlescape(str(text))+"</wps:LiteralData>\n"
         self.addExecuteRequestInputEnd()
 
     def addBoundingBoxInput(self, identifier, bboxArray):

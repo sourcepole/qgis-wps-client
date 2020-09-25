@@ -3,11 +3,12 @@
 """
 Module implementing ErrorGUI.
 """
+from __future__ import absolute_import
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-from Ui_qgswpserrorgui import Ui_Dialog
+from .Ui_qgswpserrorgui import Ui_Dialog
 
 
 class ErrorGUI(QDialog, Ui_Dialog):

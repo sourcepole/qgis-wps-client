@@ -20,18 +20,21 @@
  ***************************************************************************/
 """
 # Import the PyQt and QGIS libraries
-from PyQt4.QtCore import *
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from qgis.PyQt.QtCore import *
 from qgis.core import *
 
-import __builtin__
+import builtins
 
 def pystring(qvar):
-    return unicode(qvar.toString()) if hasattr(qvar, 'toString') else unicode(qvar)
+    return str(qvar.toString()) if hasattr(qvar, 'toString') else str(qvar)
 
-__builtin__.pystring = pystring
+builtins.pystring = pystring
 def pylist(qvar):
     return list(qvar.toList()) if hasattr(qvar, 'toList') else qvar
-__builtin__.pylist = pylist
+builtins.pylist = pylist
 def pyint(qvar):
     if hasattr(qvar, 'toInt'): 
         val, ok = qvar.toInt()
@@ -40,7 +43,7 @@ def pyint(qvar):
         return int(val)
     else:
         return qvar
-__builtin__.pyint = pyint
+builtins.pyint = pyint
 def pyfloat(qvar):
     if hasattr(qvar, 'toFloat'): 
         val, ok = qvar.toFloat()
@@ -49,13 +52,13 @@ def pyfloat(qvar):
         return float(val)
     else:
         return qvar
-__builtin__.pyfloat = pyfloat
+builtins.pyfloat = pyfloat
 def pystringlist(qvar):
-    return list(map(lambda s: unicode(s), qvar.toStringList())) if hasattr(qvar, 'toStringList') else qvar
-__builtin__.pystringlist = pystringlist
+    return list([str(s) for s in qvar.toStringList()]) if hasattr(qvar, 'toStringList') else qvar
+builtins.pystringlist = pystringlist
 def pybytearray(qvar):
     return bytearray(qvar.toByteArray()) if hasattr(qvar, 'toByteArray') else qvar
-__builtin__.pybytearray = pybytearray
+builtins.pybytearray = pybytearray
 def pyobject(qvar):
     return qvar.toPyObject() if hasattr(qvar, 'toPyObject') else qvar
-__builtin__.pyobject = pyobject
+builtins.pyobject = pyobject

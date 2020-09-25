@@ -19,17 +19,20 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
+from future import standard_library
+standard_library.install_aliases()
 import sip
-import __builtin__
+import builtins
 
 def sipv1():
     return sip.getapi("QVariant") == 1
 
-__builtin__.sipv1 = sipv1
+builtins.sipv1 = sipv1
 
 if sipv1():
-    import sipv1.compat
-    import sipv1.vectorapi
+    from .sipv1 import compat
+    from .sipv1 import vectorapi
 else:
-    import sipv2.compat
+    from .sipv2 import compat

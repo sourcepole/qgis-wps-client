@@ -73,7 +73,7 @@ def add_method(obj):
     """
     def decorator(func):
         is_class = (isinstance(obj, type)
-                    or isinstance(obj, types.ClassType))
+                    or isinstance(obj, type))
         args, varargs, varkw, defaults = inspect.getargspec(func)
         if not args or args[0] not in ('self', 'cls', 'klass'):
             # Static function/method
@@ -88,7 +88,7 @@ def add_method(obj):
                 def replacement(*args, **kw):
                     return func(obj, *args, **kw)
                 try:
-                    replacement.func_name = func.func_name
+                    replacement.__name__ = func.__name__
                 except:
                     pass
         else:
@@ -98,10 +98,10 @@ def add_method(obj):
                 def replacement(*args, **kw):
                     return func(obj.__class__, *args, **kw)
                 try:
-                    replacement.func_name = func.func_name
+                    replacement.__name__ = func.__name__
                 except:
                     pass
-        setattr(obj, func.func_name, replacement)
+        setattr(obj, func.__name__, replacement)
         return replacement
     return decorator
 

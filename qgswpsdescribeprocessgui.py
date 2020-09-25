@@ -16,11 +16,11 @@
   *                                                                         *
   ***************************************************************************
 """
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
 from qgis.core import *
-from wps import version
-from ui_qgswpsdescribeprocess import Ui_QgsWpsDescribeProcessGUI
+from . import version
+from .ui_qgswpsdescribeprocess import Ui_QgsWpsDescribeProcessGUI
 import os, sys, string
 
 class QgsWpsDescribeProcessGui(QDialog, QObject, Ui_QgsWpsDescribeProcessGUI):

@@ -1,7 +1,7 @@
 from sextante.gui.ToolboxAction import ToolboxAction
 from sextante.core.Sextante import Sextante
 import os
-from PyQt4 import QtGui
+from qgis.PyQt import QtGui
 from PyQt4.QtCore import *
 
 class AddNewWpsAction(ToolboxAction):

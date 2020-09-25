@@ -1,13 +1,16 @@
+from __future__ import absolute_import
+from builtins import next
+from builtins import str
 from Processing.core.AlgorithmProvider import AlgorithmProvider
 from processing.core.ProcessingConfig import Setting, ProcessingConfig
 from processing.core.ProcessingUtils import mkdir, ProcessingUtils
-from WpsAlgorithm import WpsAlgorithm
-from AddNewWpsAction import AddNewWpsAction
-from WpsServerAction import WpsServerAction
+from .WpsAlgorithm import WpsAlgorithm
+from .AddNewWpsAction import AddNewWpsAction
+from .WpsServerAction import WpsServerAction
 from wps.wpslib.wpsserver import WpsServer
 from wps.wpslib.processdescription import ProcessDescription
 import os
-from PyQt4 import QtGui
+from qgis.PyQt import QtGui
 
 class WpsAlgorithmProvider(AlgorithmProvider):
 
@@ -28,7 +31,7 @@ class WpsAlgorithmProvider(AlgorithmProvider):
     def WpsDescriptionFolder():
         folder = ProcessingConfig.getSetting(WpsAlgorithmProvider.WPS_DESCRIPTIONS)
         if folder == None:
-            folder = unicode(os.path.join(ProcessingUtils.userFolder(), "wps"))
+            folder = str(os.path.join(ProcessingUtils.userFolder(), "wps"))
         mkdir(folder)
         return os.path.abspath(folder)
 

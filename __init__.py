@@ -16,6 +16,7 @@
   *                                                                         *
   ***************************************************************************
 """
+from __future__ import absolute_import
 def name():
   return "WPS-Client"
   
@@ -47,5 +48,5 @@ def homepage():
   return "https://github.com/sourcepole/qgis-wps-client"
   
 def classFactory(iface):
-  from qgswps import QgsWps
+  from .qgswps import QgsWps
   return QgsWps(iface)  

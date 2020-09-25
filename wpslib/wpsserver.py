@@ -17,13 +17,16 @@
   ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
-from PyQt4.QtGui import QApplication,QMessageBox
-from PyQt4 import QtXml
+from builtins import str
+from builtins import range
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtNetwork import *
+from qgis.PyQt.QtWidgets import QApplication, QMessageBox
+from qgis.PyQt import QtXml
 from qgis.core import QgsNetworkAccessManager
-from wps.wpslib.wpsservercookie import WpsServerCookie
+from .wpsservercookie import WpsServerCookie
 
+from ..apicompat.sipv2.compat import pystring
 
 class WpsServer(QObject):
 
@@ -131,7 +134,7 @@ class WpsServer(QObject):
         self.capabilitiesRequestFinished.emit()
 
     def parseCapabilitiesXML(self):
-        from wps.wpslib.processdescription import ProcessDescription
+        from .processdescription import ProcessDescription
         version    = self.doc.elementsByTagNameNS("http://www.opengis.net/wps/1.0.0","Process")
         title      = self.doc.elementsByTagNameNS("http://www.opengis.net/ows/1.1","Title")    
         identifier = self.doc.elementsByTagNameNS("http://www.opengis.net/ows/1.1","Identifier")

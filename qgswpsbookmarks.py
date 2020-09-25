@@ -16,14 +16,15 @@
   *                                                                         *
   ***************************************************************************/
 """
+from __future__ import absolute_import
 
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
-from wps import version
-from wpslib.wpsserver import WpsServer
-from wpslib.processdescription import ProcessDescription
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtWidgets import *
+from . import version
+from .wpslib.wpsserver import WpsServer
+from .wpslib.processdescription import ProcessDescription
 
-from Ui_qgswpsbookmarks import Ui_Bookmarks
+from .Ui_qgswpsbookmarks import Ui_Bookmarks
 
 class Bookmarks(QDialog, QObject,  Ui_Bookmarks):
     """
@@ -56,31 +57,23 @@ class Bookmarks(QDialog, QObject,  Ui_Bookmarks):
         self.treeWidget.addTopLevelItems(itemList)        
 
 
-    @pyqtSignature("QTreeWidgetItem*, int")
     def on_treeWidget_itemDoubleClicked(self, item, column):
         self.getBookmarkDescription.emit(item)
         self.close()
 
-    @pyqtSignature("")
     def on_btnConnect_clicked(self):
         self.close()
 
-    
-    @pyqtSignature("")
     def on_btnEdit_clicked(self):
          pass
-    
-    @pyqtSignature("")
+
     def on_btnRemove_clicked(self):
         if self.treeWidget.currentItem():
             self.removeBookmark(self.treeWidget.currentItem())
-       
-    @pyqtSignature("")
+
     def on_btnOK_clicked(self):
         self.getBookmarkDescription.emit(self.myItem)
 
-    
-    @pyqtSignature("")
     def on_btnClose_clicked(self):
          self.close()
          

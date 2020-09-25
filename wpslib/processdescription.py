@@ -16,17 +16,20 @@
   *                                                                         *
   ***************************************************************************/
 """
+from __future__ import absolute_import
 
-from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
-from PyQt4.QtGui import QApplication,QMessageBox
-from PyQt4 import QtXml
+from builtins import str
+from builtins import range
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtNetwork import *
+from qgis.PyQt.QtWidgets import QApplication, QMessageBox
+from qgis.PyQt import QtXml
 from qgis.core import QgsNetworkAccessManager
-from wpsserver import WpsServer
+from .wpsserver import WpsServer
 from collections import namedtuple
 import os
-import wps.apicompat
-from wps.wpslib.wpsservercookie import WpsServerCookie
+from .. import apicompat
+from .wpsservercookie import WpsServerCookie
 
 
 # Process description example:

@@ -1,13 +1,16 @@
+from __future__ import absolute_import
+from builtins import next
+from builtins import str
 from sextante.core.AlgorithmProvider import AlgorithmProvider
 from sextante.core.SextanteConfig import Setting, SextanteConfig
 from sextante.core.SextanteUtils import mkdir, SextanteUtils
-from WpsAlgorithm import WpsAlgorithm
-from AddNewWpsAction import AddNewWpsAction
-from WpsServerAction import WpsServerAction
+from .WpsAlgorithm import WpsAlgorithm
+from .AddNewWpsAction import AddNewWpsAction
+from .WpsServerAction import WpsServerAction
 from wps.wpslib.wpsserver import WpsServer
 from wps.wpslib.processdescription import ProcessDescription
 import os
-from PyQt4 import QtGui
+from qgis.PyQt import QtGui
 
 class WpsAlgorithmProvider(AlgorithmProvider):
 
@@ -28,7 +31,7 @@ class WpsAlgorithmProvider(AlgorithmProvider):
     def WpsDescriptionFolder():
         folder = SextanteConfig.getSetting(WpsAlgorithmProvider.WPS_DESCRIPTIONS)
         if folder == None:
-            folder = unicode(os.path.join(SextanteUtils.userFolder(), "wps"))
+            folder = str(os.path.join(SextanteUtils.userFolder(), "wps"))
         mkdir(folder)
         return os.path.abspath(folder)
 

@@ -17,12 +17,15 @@
   ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtNetwork import *
-from PyQt4 import QtXml
-from PyQt4.QtWebKit import QWebView
+from builtins import range
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtNetwork import *
+from qgis.PyQt import QtXml
+from qgis.PyQt.QtWebKitWidgets import QWebView
 from qgis.core import *
+
+from .apicompat.sipv2.compat import pystring
 
 
 
@@ -41,7 +44,7 @@ class QgsWpsTools(QObject):
     mapLayers = QgsMapLayerRegistry.instance().mapLayers()
     i=1
     layerNameList = []    
-    for (k, layer) in mapLayers.iteritems():
+    for (k, layer) in mapLayers.items():
       layerNameList.append(layer.name())
 
     layerNameList.sort()
@@ -63,7 +66,7 @@ class QgsWpsTools(QObject):
 
     if all:
       mapLayers = QgsMapLayerRegistry.instance().mapLayers()      
-      for (k, layer) in mapLayers.iteritems():
+      for (k, layer) in mapLayers.items():
         myLayerList.append(layer.name())
     else:
       mc=self.iface.mapCanvas()

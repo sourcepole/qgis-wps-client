@@ -16,18 +16,22 @@
   *                                                                         *
   ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtNetwork import *
+from __future__ import absolute_import
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
+from qgis.PyQt.QtNetwork import *
 from qgis.core import *
-from wps import version
-from wpslib.wpsserver import WpsServer
-from Ui_qgswpsgui import Ui_QgsWps
-from qgswpsbookmarks import Bookmarks
-from doAbout import DlgAbout
+from . import version
+from .wpslib.wpsserver import WpsServer
+from .Ui_qgswpsgui import Ui_QgsWps
+from .qgswpsbookmarks import Bookmarks
+from .doAbout import DlgAbout
 
 
-import os, sys, string,  apicompat
+import os, sys, string
+from .apicompat.sipv2.compat import pystring, pyint
+
 
 class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   MSG_BOX_TITLE = "WPS"
@@ -81,7 +85,6 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
 
   # see http://www.riverbankcomputing.com/Docs/PyQt4/pyqt4ref.html#connecting-signals-and-slots
   # without this magic, the on_btnOk_clicked will be called two times: one clicked() and one clicked(bool checked)
-  @pyqtSignature("on_buttonBox_accepted()")          
   def on_buttonBox_accepted(self):
     if  self.treeWidget.topLevelItemCount() == 0:
       QMessageBox.warning(None, 'WPS Warning','No Service connected!')
@@ -93,7 +96,6 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
     
   # see http://www.riverbankcomputing.com/Docs/PyQt4/pyqt4ref.html#connecting-signals-and-slots
   # without this magic, the on_btnOk_clicked will be called two times: one clicked() and one clicked(bool checked)
-  @pyqtSignature("on_btnConnect_clicked()")       
   def on_btnConnect_clicked(self):
     self.treeWidget.clear()
     self.filterText = ''
@@ -103,27 +105,22 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
     self.server.capabilitiesRequestFinished.connect(self.createCapabilitiesGUI)
     self.server.requestCapabilities()
 
-  @pyqtSignature("on_btnBookmarks_clicked()")       
   def on_btnBookmarks_clicked(self):    
       self.dlgBookmarks = Bookmarks(self.fl)
       self.dlgBookmarks.getBookmarkDescription.connect(self.getBookmark)
 #      self.dlgBookmarks.bookmarksChanged.connect(bookmarksChanged())
       self.dlgBookmarks.show()
 
-  @pyqtSignature("on_btnNew_clicked()")       
   def on_btnNew_clicked(self):    
     self.newServer.emit()
-    
-  @pyqtSignature("on_btnEdit_clicked()")       
+
   def on_btnEdit_clicked(self):    
     self.editServer.emit(self.cmbConnections.currentText())    
 
-  @pyqtSignature("on_cmbConnections_activated(int)")           
   def on_cmbConnections_activated(self,  index):
     settings = QSettings()
     settings.setValue("WPS-lastConnection/Index", pystring(index))
-  
-  @pyqtSignature("on_btnDelete_clicked()")       
+
   def on_btnDelete_clicked(self):    
     self.deleteServer.emit(self.cmbConnections.currentText())    
 
@@ -155,13 +152,11 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
                 itemList.append(item)
     
     self.treeWidget.addTopLevelItems(itemList)
-    
-  @pyqtSignature("on_btnAbout_clicked()")       
+
   def on_btnAbout_clicked(self):
       self.dlgAbout.show()
       pass
-    
-  @pyqtSignature("QTreeWidgetItem*, int")
+
   def on_treeWidget_itemDoubleClicked(self, item, column):
       self.getDescription.emit(self.cmbConnections.currentText(),  self.treeWidget.currentItem() )
 
@@ -172,8 +167,7 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
           self.initTreeWPSServices(self.itemListAll)
 #      except:
 #          pass
-    
-  @pyqtSignature("QString")
+
   def on_lneFilter_textChanged(self, p0):
         """
         Slot documentation goes here.
