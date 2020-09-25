@@ -51,23 +51,24 @@ class QgsWps(object):
     self.iface = iface  
     self.localePath = ""
     
-    #Initialise the translation environment    
-    userPluginPath = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+"/python/plugins/wps"  
-    systemPluginPath = QgsApplication.prefixPath()+"/share/qgis/python/plugins/wps"
-    myLocale = pystring(QSettings().value("locale/userLocale"))[0:2]
-    if QFileInfo(userPluginPath).exists():
-      self.pluginPath = userPluginPath
-      self.localePath = userPluginPath+"/i18n/wps_"+myLocale+".qm"
-    elif QFileInfo(systemPluginPath).exists():
-      self.pluginPath = systemPluginPath
-      self.localePath = systemPluginPath+"/i18n/wps_"+myLocale+".qm"
-
-    if QFileInfo(self.localePath).exists():
-      self.translator = QTranslator()
-      self.translator.load(self.localePath)
-      
-      if qVersion() > '4.3.3':        
-        QCoreApplication.installTranslator(self.translator)  
+    #Initialise the translation environment
+    # RD: for now leave it as TODO
+    # userPluginPath = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+"/python/plugins/wps"
+    # systemPluginPath = QgsApplication.prefixPath()+"/share/qgis/python/plugins/wps"
+    # myLocale = pystring(QSettings().value("locale/userLocale"))[0:2]
+    # if QFileInfo(userPluginPath).exists():
+    #   self.pluginPath = userPluginPath
+    #   self.localePath = userPluginPath+"/i18n/wps_"+myLocale+".qm"
+    # elif QFileInfo(systemPluginPath).exists():
+    #   self.pluginPath = systemPluginPath
+    #   self.localePath = systemPluginPath+"/i18n/wps_"+myLocale+".qm"
+    #
+    # if QFileInfo(self.localePath).exists():
+    #   self.translator = QTranslator()
+    #   self.translator.load(self.localePath)
+    #
+    #   if qVersion() > '4.3.3':
+    #     QCoreApplication.installTranslator(self.translator)
 
 
   ##############################################################################

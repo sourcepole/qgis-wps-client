@@ -132,7 +132,6 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
 
         self.statusLabel.setText(pystring(self.processIdentifier+text))
 
-    @pyqtSignature("")
     def on_btnConnect_clicked(self):
         self.dlg.initQgsWpsGui()
         self.statusLabel.setText("")
@@ -589,13 +588,13 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
               vlayer.setCrs(self.myLayer.dataProvider().crs())
             except:
               pass
-            bLoaded = QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+            bLoaded = QgsProject.instance().addMapLayer(vlayer)
 
        # Raster data
         elif isMimeTypeRaster(self.mimeType) != None:
             # We can directly attach the new layer
             rLayer = QgsRasterLayer(resultFile, layerName)
-            bLoaded = QgsMapLayerRegistry.instance().addMapLayer(rLayer)
+            bLoaded = QgsProject.instance().addMapLayer(rLayer)
 
         # Text data
         elif isMimeTypeText(self.mimeType) != None:
@@ -713,8 +712,6 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
             settings.setValue(mySettings+"/url",pystring(v))
             self.dlg.initQgsWpsGui()
 
-
-    @pyqtSignature("")
     def on_btnKill_clicked(self):
         self.wps.thePostReply.abort()
         self.wps.thePostReply.deleteLater()
