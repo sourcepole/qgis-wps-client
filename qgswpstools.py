@@ -41,7 +41,7 @@ class QgsWpsTools(QObject):
 
   def uniqueLayerName(self, name):
 
-    mapLayers = QgsMapLayerRegistry.instance().mapLayers()
+    mapLayers = QgsProject.instance().mapLayers()
     i=1
     layerNameList = []    
     for (k, layer) in mapLayers.items():
@@ -65,7 +65,7 @@ class QgsWpsTools(QObject):
     myLayerList = []    
 
     if all:
-      mapLayers = QgsMapLayerRegistry.instance().mapLayers()      
+      mapLayers = QgsProject.instance().mapLayers()      
       for (k, layer) in mapLayers.items():
         myLayerList.append(layer.name())
     else:
@@ -123,7 +123,7 @@ class QgsWpsTools(QObject):
     for l in range(nLayers):
       layer = mc.layer(l)
       if layer.name() == name:
-        dataSource = QgsDataSourceURI(layer.dataProvider().dataSourceUri())
+        dataSource = QgsDataSourceUri(layer.dataProvider().dataSourceUri())
         theTableName = dataSource.quotedTablename()
         theTableName.replace('"','')
         return theTableName 

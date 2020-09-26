@@ -110,10 +110,17 @@ class ExecutionResult(QObject):
         server = processUrl.host()
         port = processUrl.port()
         
-        processUrl.removeQueryItem('Request')
-        processUrl.removeQueryItem('identifier')
-        processUrl.removeQueryItem('Version')
-        processUrl.removeQueryItem('Service')
+        # processUrl.removeQueryItem('Request')
+        # processUrl.removeQueryItem('identifier')
+        # processUrl.removeQueryItem('Version')
+        # processUrl.removeQueryItem('Service')
+        # query = QUrlQuery(processUrl)
+        # query.removeQueryItem('Request')
+        # query.removeQueryItem('identifier')
+        # query.removeQueryItem('Version')
+        # query.removeQueryItem('Service')
+        query = QUrlQuery()
+        processUrl.setQuery(query)
 
         qDebug("Post URL=" + pystring(processUrl))
     

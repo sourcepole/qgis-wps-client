@@ -25,7 +25,7 @@ from qgis.PyQt.QtSql import *
 from qgis.core import QgsVectorFileWriter,  QgsDataSourceUri
 import os, sys, string, tempfile, base64
 from ..apicompat.sipv2.compat import pystring
-import cgi
+import html
 
 
 # Execute example:
@@ -162,9 +162,10 @@ def createTmpGML(vLayer, processSelection="False", supportedGML="GML2"):
     else: # "GML" or "GML2"
       dso = []
     lco = []
-    error = QgsVectorFileWriter.writeAsVectorFormat(vLayer, tmpFile, encoding, vLayer.dataProvider().crs(), "GML",  processSelected,  "",  dso,  lco)
+    # error = QgsVectorFileWriter.writeAsVectorFormat(vLayer, tmpFile, encoding, vLayer.dataProvider().crs(), "GML",  processSelected,  "",  dso,  lco)
+    error, msg = QgsVectorFileWriter.writeAsVectorFormat(vLayer, tmpFile, encoding, vLayer.dataProvider().crs(), "GML",  processSelected, dso, lco)
     if error != QgsVectorFileWriter.NoError:
-        QMessageBox.information(None, 'Error',  'Process stopped with errors')
+        QMessageBox.information(None, 'Error',  'Process stopped with errors\n'+msg)
     else:
         myFile = QFile(tmpFile)
         if (not myFile.open(QIODevice.ReadOnly | QIODevice.Text)):
@@ -207,7 +208,7 @@ def getDBEncoding(layerProvider):
 
 
 def htmlescape(text):
-    return cgi.escape(text, True)
+    return html.escape(text, True)
 
 
 class ExecutionRequest(QObject):

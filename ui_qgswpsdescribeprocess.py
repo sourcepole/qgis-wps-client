@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from builtins import object
-from qgis.PyQt import QtCore, QtGui
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 
 class Ui_QgsWpsDescribeProcessGUI(object):
     def setupUi(self, QgsWpsDescribeProcessGUI):
@@ -20,5 +20,7 @@ class Ui_QgsWpsDescribeProcessGUI(object):
         QtCore.QMetaObject.connectSlotsByName(QgsWpsDescribeProcessGUI)
 
     def retranslateUi(self, QgsWpsDescribeProcessGUI):
-        QgsWpsDescribeProcessGUI.setWindowTitle(QtGui.QApplication.translate("QgsWpsDescribeProcessGUI", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        # RD TODO
+        pass
+        #QgsWpsDescribeProcessGUI.setWindowTitle(QtWidgets.QApplication.translate("QgsWpsDescribeProcessGUI", "Dialog", None, QtWidgets.QApplication.UnicodeUTF8))
 
