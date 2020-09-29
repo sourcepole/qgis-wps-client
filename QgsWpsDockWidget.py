@@ -524,12 +524,13 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
 
     def saveBookmark(self):
         server = WpsServer.getServer(self.dlgProcess.currentServiceName())
-        process = ProcessDescription(server, self.processUrl.queryItemValue('identifier'))
+        query = QUrlQuery(self.processUrl)
+        process = ProcessDescription(server, query.queryItemValue('identifier'))
         process.saveBookmark()
         self.bookmarksChanged.emit()
         QMessageBox.information(self.iface.mainWindow(),
-            QCoreApplication.translate("QgsWps","Bookmark"),
-            QCoreApplication.translate("QgsWps","The creation bookmark was successful."))
+            QCoreApplication.translate("QgsWps", "Bookmark"),
+            QCoreApplication.translate("QgsWps"," The creation bookmark was successful."))
 
     def fetchingResult(self, noFilesToFetch):
         QApplication.restoreOverrideCursor()
