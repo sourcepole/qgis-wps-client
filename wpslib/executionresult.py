@@ -20,7 +20,7 @@
 from builtins import range
 from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtNetwork import *
-from qgis.PyQt.QtXml import *
+from PyQt5.QtXmlPatterns import QXmlQuery  # TODO move this to qgis.PyQt.QtXmlPatterns when possible
 from qgis.PyQt.QtWidgets import QApplication, QMessageBox
 from qgis.PyQt import QtXml
 from qgis.core import QgsNetworkAccessManager
@@ -104,21 +104,7 @@ class ExecutionResult(QObject):
 
         postData = QByteArray()
         postData.append(requestXml)
-    
-        scheme = processUrl.scheme()
-        path = processUrl.path()
-        server = processUrl.host()
-        port = processUrl.port()
-        
-        # processUrl.removeQueryItem('Request')
-        # processUrl.removeQueryItem('identifier')
-        # processUrl.removeQueryItem('Version')
-        # processUrl.removeQueryItem('Service')
-        # query = QUrlQuery(processUrl)
-        # query.removeQueryItem('Request')
-        # query.removeQueryItem('identifier')
-        # query.removeQueryItem('Version')
-        # query.removeQueryItem('Service')
+
         query = QUrlQuery()
         processUrl.setQuery(query)
 
@@ -290,16 +276,17 @@ class ExecutionResult(QObject):
         
     def errorHandler(self, resultXML):
          if resultXML:
-           qDebug(resultXML)
+           resultXMLstr = resultXML.decode("utf-8")
+           qDebug(resultXMLstr)
            query = QXmlQuery(QXmlQuery.XSLT20)
            xslFile = QFile(":/plugins/wps/exception.xsl")
            xslFile.open(QIODevice.ReadOnly)
-           bRead = query.setFocus(resultXML)
+           bRead = query.setFocus(resultXMLstr)
            query.setQuery(xslFile)
            exceptionHtml = query.evaluateToString()
            if exceptionHtml is None:
                qDebug("Empty result from exception.xsl")
-               exceptionHtml = resultXML
+               exceptionHtml = resultXMLstr
            self._errorResultCallback(exceptionHtml)
            xslFile.close()
          return False
