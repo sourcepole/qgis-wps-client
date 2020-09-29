@@ -28,7 +28,6 @@ from .Ui_qgswpsgui import Ui_QgsWps
 from .qgswpsbookmarks import Bookmarks
 from .doAbout import DlgAbout
 
-
 import os, sys, string
 from .apicompat.sipv2.compat import pystring, pyint
 
@@ -69,9 +68,9 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
       self.btnDelete.setEnabled(True)
 
     try:
-        settings = QSettings()
-        myIndex = pyint(settings.value("WPS-lastConnection/Index",  "Index"))
-        self.cmbConnections.setCurrentIndex(myIndex)
+        # RD: I think using indexText is safer in this way, then actual index
+        indexText = QSettings().value("WPS-lastConnection/Index",  "Unknown")
+        self.cmbConnections.setCurrentText(indexText)
     except:
         pass
 
@@ -117,9 +116,9 @@ class QgsWpsGui(QDialog, QObject, Ui_QgsWps):
   def on_btnEdit_clicked(self):    
     self.editServer.emit(self.cmbConnections.currentText())    
 
-  def on_cmbConnections_activated(self,  index):
-    settings = QSettings()
-    settings.setValue("WPS-lastConnection/Index", pystring(index))
+  def on_cmbConnections_activated(self, indexText):
+    # RD: I think using indexText is safer in this way, then actual index
+    QSettings().setValue("WPS-lastConnection/Index", pystring(indexText))
 
   def on_btnDelete_clicked(self):    
     self.deleteServer.emit(self.cmbConnections.currentText())    
