@@ -109,10 +109,11 @@ class ExecutionResult(QObject):
         processUrl.setQuery(query)
 
         qDebug("Post URL=" + pystring(processUrl))
+        qDebug(requestXml)
     
         thePostHttp = QgsNetworkAccessManager.instance()
         request = QNetworkRequest(processUrl)
-        request.setHeader( QNetworkRequest.ContentTypeHeader, "text/xml" )
+        request.setHeader(QNetworkRequest.ContentTypeHeader, "text/xml")
 
         # add cookies in header
         serverCookie = WpsServerCookie(processUrl)

@@ -63,6 +63,8 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
     killed = pyqtSignal()
     bookmarksChanged = pyqtSignal()
 
+    #import pydevd_pycharm
+    #pydevd_pycharm.settrace('localhost', port=1234, stdoutToServer=True, stderrToServer=True, suspend=False)
 
     def __init__(self, iface):
         """
@@ -183,6 +185,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
 
         # If no Input Data  are requested
         if len(self.process.inputs)==0:
+          qDebug('Warning: no inputs defined for process: {} ?'.format(self.identifier))
           self.defineProcess()
           return 0
 
@@ -252,7 +255,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
                 valList = input.valList
                 self.literalInputComboBoxList.append(self.tools.addLiteralComboBox(title, inputIdentifier, valList, minOccurs,  self.dlgProcessScrollAreaWidget,  self.dlgProcessScrollAreaWidgetLayout))
             elif inputType == ExtentInput:
-                myExtent = pystring(self.iface.mapCanvas().extent()).replace(':',',')
+                myExtent = self.iface.mapCanvas().extent().toString().replace(':', ',')
                 self.bboxInputLineEditList.append(self.tools.addLiteralLineEdit(title+"(minx,miny,maxx,maxy)", inputIdentifier, minOccurs,  self.dlgProcessScrollAreaWidget,  self.dlgProcessScrollAreaWidgetLayout, myExtent))
             elif inputType == CrsInput:
                 crsListe = input.crsList
@@ -425,7 +428,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
 
               request.addLiteralDataInput(lineEdit.objectName(), lineEdit.text())
 
-           # BBOX data as lineEdit #########################################
+            # BBOX data as lineEdit #########################################
             for bbox in self.bboxInputLineEditList:
               if bbox == None or bbox.text() == "":
                   continue
@@ -627,7 +630,7 @@ class QgsWpsDockWidget(QDockWidget, Ui_QgsWpsDockWidget):
                 QApplication.translate("QgsWps","It seems QGIS cannot load the result of the process. The result has a '{0}' type and can be accessed at '{1}'. \n\nYou could ask the service provider to consider changing the default data type of the result.").format(self.mimeType,  resultFile))
 
     def getLiteralResult(self, identifier, literalText):
-        self.tools.popUpMessageBox(QCoreApplication.translate("QgsWps",'Result'),literalText)
+        self.tools.popUpMessageBox(QCoreApplication.translate("QgsWps", 'Result'), literalText)
         self.setStatus('finished')
 
     def getResultFile(self, identifier, mimeType, encoding, schema, reply):

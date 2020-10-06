@@ -362,12 +362,13 @@ class ProcessDescription(QObject):
         settings.endGroup()
 
     def requestUrl(self):
-        url = QUrl()
-        if '?' in self.server.baseUrl:
-            request = "&Request=DescribeProcess&identifier=" + self.identifier + "&Service=WPS&Version=" + self.version
-        else:
-            request = "?Request=DescribeProcess&identifier=" + self.identifier + "&Service=WPS&Version=" + self.version
-        url.setUrl(self.server.baseUrl + request)
+        url = QUrl(self.server.baseUrl)
+        query = QUrlQuery()
+        query.addQueryItem('Request', 'DescribeProcess')
+        query.addQueryItem('Service', 'WPS')
+        query.addQueryItem('Version', self.version)
+        query.addQueryItem('identifier', self.identifier)
+        url.setQuery(query)
         return url
 
     def requestDescribeProcess(self):

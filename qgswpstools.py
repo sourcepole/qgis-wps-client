@@ -150,8 +150,12 @@ class QgsWpsTools(QObject):
   ##############################################################################
 
   def popUpMessageBox(self, title, detailedText):
-    """A message box used for debugging"""
+    """A message box used for debugging AND showing literal outputs"""
     mbox = WPSMessageBox()
+    # if detailedText is a small text then just show it together with title
+    # else the user always has to open the details box just to see for example 'Result: 2'
+    if len(detailedText) < 50:
+        title = '{}: {}'.format(title, detailedText)
     mbox.setText(title)
     mbox.setDetailedText(detailedText)
     mbox.exec_()
@@ -466,15 +470,15 @@ class WPSMessageBox(QMessageBox):
     def event(self, e):
         result = QMessageBox.event(self, e)
 
-        self.setMinimumHeight(600)
+        self.setMinimumHeight(300)
         self.setMaximumHeight(16777215)
-        self.setMinimumWidth(800)
+        self.setMinimumWidth(400)
         self.setMaximumWidth(16777215)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         textEdit = self.findChild(QTextEdit)
         if textEdit != None :
-            textEdit.setMinimumHeight(300)
+            textEdit.setMinimumHeight(200)
             textEdit.setMaximumHeight(16777215)
             textEdit.setMinimumWidth(300)
             textEdit.setMaximumWidth(16777215)
