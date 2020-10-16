@@ -268,17 +268,17 @@ U zou aan de eigenaar van deze service kunnen vragen om het standaardtype te ver
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="65"/>
         <source>QGIS WPS-Client</source>
-        <translation>QGIS WPS-Verbinding</translation>
+        <translation type="unfinished">QGIS WPS-Verbinding</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="66"/>
         <source>connect</source>
-        <translation>verbinden</translation>
+        <translation>Verbindingen</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="67"/>
         <source>kill process</source>
-        <translation>proces afbreken</translation>
+        <translation>Proces Afbreken</translation>
     </message>
 </context>
 <context>
