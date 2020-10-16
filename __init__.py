@@ -16,37 +16,40 @@
   *                                                                         *
   ***************************************************************************
 """
-from __future__ import absolute_import
+
+
 def name():
-  return "WPS-Client"
-  
+    return "WPS-Client"
+
+
 def description():
-  return "Client for Web Processing Services"
+    return "Client for Web Processing Services"
+
 
 def version():
-  return "2.1.6"
+    return "3.0.0 (experimental)"
 
-def qgisMinimumVersion():
-  return "1.5"  
-  
-def qgisMaximumVersion():
-  return "2.99"    
 
 def date():
-    return '2017-08-07'
-    
+    return '2020-10-16'
+
+
 def email():
     return 'horst.duester@sourcepole.ch'
-    
+
+
 def author():
-  return "Dr. Horst Duester / Sourcepole AG Zurich"
-  
+    return "Dr. Horst Duester / Sourcepole AG Zurich"
+
+
 def icon():
-	return "images/wps-add.png"   
+    return "images/wps-add.png"
+
 
 def homepage():
-  return "https://github.com/sourcepole/qgis-wps-client"
-  
+    return "https://github.com/sourcepole/qgis-wps-client"
+
+
 def classFactory(iface):
-  from .qgswps import QgsWps
-  return QgsWps(iface)  
+    from .qgswps import QgsWps
+    return QgsWps(iface)

@@ -1,18 +1,18 @@
-- move repo to sourcepole
-- move old branch to qgis2-branche and 2to3 to master
-- release a 3.0.0
-- update about box params
+- move repo to sourcepole DONE
+- move old branch to qgis2-branche and 2to3 to master DONE
+- update about box txt DONE
+- fix translations
+- release a 3.0.0 as experimental
 
 fix:
 - public wps or fix current wps list
-- translatability
 - dialog with params (after describe request) should be modal in QGIS window
 - 'kill process' throws error
 
 new features:
-- make it possible a 'bookmark' also remembers it's parameters
+- make it possible a 'bookmark' also remembers it's parameters (to rerun a request including the earlier parameters)
 - handle processes returns like a 400 on eurdep
-- processing wps?
+- processing wps?  <= probably not, has never worked according to Horst
 
 cleanups:
 - 'future' stuff

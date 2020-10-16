@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0">
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>Bookmarks</name>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="48"/>
         <source>WPS-Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>WPS-Favorieten</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="50"/>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Service</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="51"/>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="52"/>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="53"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="54"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsbookmarks.py" line="55"/>
         <source>Run</source>
-        <translation type="unfinished"></translation>
+        <translation>Draaien</translation>
     </message>
 </context>
 <context>
@@ -43,7 +44,7 @@
     <message>
         <location filename="qgswpserrorgui.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialoog</translation>
     </message>
 </context>
 <context>
@@ -51,12 +52,12 @@
     <message>
         <location filename="doAbout.py" line="36"/>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Versie:</translation>
     </message>
     <message>
         <location filename="doAbout.py" line="37"/>
         <source>Date: </source>
-        <translation type="unfinished"></translation>
+        <translation>Datum:</translation>
     </message>
 </context>
 <context>
@@ -64,32 +65,32 @@
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="60"/>
         <source>Create a new WPS connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een nieuwe WPS-verbinding aan</translation>
     </message>
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="61"/>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindingsdetails</translation>
     </message>
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="62"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="63"/>
         <source>Name of the new connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam voor de verbinding</translation>
     </message>
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="64"/>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <location filename="Ui_qgsnewhttpconnectionbase.py" line="65"/>
         <source>HTTP address of the Web Map Server</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP address van de WPS-server</translation>
     </message>
 </context>
 <context>
@@ -97,159 +98,161 @@
     <message>
         <location filename="Ui_qgswpsgui.py" line="100"/>
         <source>Note: this plugin not considered stable yet. Use it on your own risk</source>
-        <translation type="unfinished"></translation>
+        <translation>Let Op: deze plugin is experimenteel, gebruik op eigen risico</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="101"/>
         <source>Server Connections</source>
-        <translation type="unfinished"></translation>
+        <translation>ServerVerbindingen</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="102"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="103"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Aanpassen</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="104"/>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinden</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="105"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="106"/>
         <source>Add default server</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard servers toevoegen</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="107"/>
         <source>Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Favorieten</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="108"/>
         <source>Filter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter:</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="110"/>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identificatie</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="111"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="112"/>
         <source>Abstract</source>
-        <translation type="unfinished"></translation>
+        <translation>Samenvatting</translation>
     </message>
     <message>
         <location filename="Ui_qgswpsgui.py" line="113"/>
         <source>about</source>
-        <translation type="unfinished"></translation>
+        <translation>Informatie</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="123"/>
         <source> upload data ...</source>
-        <translation type="unfinished"></translation>
+        <translation> data opsturen ...</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="125"/>
         <source> is running ...</source>
-        <translation type="unfinished"></translation>
+        <translation> verwerken ...</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="127"/>
         <source> download data ...</source>
-        <translation type="unfinished"></translation>
+        <translation> data ophalen ...</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="129"/>
         <source> finished successfully</source>
-        <translation type="unfinished"></translation>
+        <translation> succesvol uitgevoerd</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="131"/>
         <source> terminated with errors!</source>
-        <translation type="unfinished"></translation>
+        <translation> afgebroken met foutmeldingen!</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="133"/>
         <source> was aborted!</source>
-        <translation type="unfinished"></translation>
+        <translation> werd afgebroken!</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="264"/>
         <source>Process selected objects only</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleen voor geselecteerde objecten</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="264"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Geselecteerd</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="502"/>
         <source>Run</source>
-        <translation type="unfinished"></translation>
+        <translation>Draaien</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="507"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Terug</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="512"/>
         <source>Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoriet Toevoegen</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="534"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoriet</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="534"/>
         <source> The creation bookmark was successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>Favoriet aangemaakt.</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="609"/>
         <source>Process result (text/plain)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces-resultaat (text)</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="625"/>
         <source>Process result (unsupported mime type)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces-resultaat (onbekend mime formaat)</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="628"/>
         <source>Result not loaded to the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultaat niet geladen in de kaart</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="628"/>
         <source>It seems QGIS cannot load the result of the process. The result has a &apos;{0}&apos; type and can be accessed at &apos;{1}&apos;. 
 
 You could ask the service provider to consider changing the default data type of the result.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het lijkt erop dat QGIS het resultaat van dit proces niet kan laden. Het resultaat is van &apos;{0}&apos; type kan niet benaderd worden op &apos;{1}&apos;. 
+
+U zou aan de eigenaar van deze service kunnen vragen om het standaardtype te veranderen.</translation>
     </message>
     <message>
         <location filename="QgsWpsDockWidget.py" line="633"/>
         <source>Result</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultaat</translation>
     </message>
 </context>
 <context>
@@ -257,7 +260,7 @@ You could ask the service provider to consider changing the default data type of
     <message>
         <location filename="Ui_qgswpsdescribeprocessgui.py" line="25"/>
         <source>Describe Process</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -265,17 +268,17 @@ You could ask the service provider to consider changing the default data type of
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="65"/>
         <source>QGIS WPS-Client</source>
-        <translation type="unfinished"></translation>
+        <translation>QGIS WPS-Verbinding</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="66"/>
         <source>connect</source>
-        <translation type="unfinished"></translation>
+        <translation>verbinden</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsDockWidget.py" line="67"/>
         <source>kill process</source>
-        <translation type="unfinished"></translation>
+        <translation>proces afbreken</translation>
     </message>
 </context>
 <context>
@@ -283,12 +286,12 @@ You could ask the service provider to consider changing the default data type of
     <message>
         <location filename="qgswpsgui.py" line="94"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout</translation>
     </message>
     <message>
         <location filename="qgswpsgui.py" line="94"/>
         <source>Please select a process!</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een proces aub!</translation>
     </message>
 </context>
 <context>
@@ -296,32 +299,32 @@ You could ask the service provider to consider changing the default data type of
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="103"/>
         <source>About QgsWPS</source>
-        <translation type="unfinished"></translation>
+        <translation>QgsWPS Informatie</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="101"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versie:</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="102"/>
         <source>Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum:</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="104"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Meewerkenden</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="105"/>
         <source>Sponsors</source>
-        <translation type="unfinished"></translation>
+        <translation>Sponsors</translation>
     </message>
     <message>
         <location filename="Ui_QgsWpsAbout.py" line="106"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licentie</translation>
     </message>
 </context>
 </TS>

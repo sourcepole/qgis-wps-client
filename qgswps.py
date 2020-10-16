@@ -27,6 +27,7 @@ from .QgsWpsDockWidget import QgsWpsDockWidget
 from . import version
 from .doAbout import DlgAbout
 from .apicompat.sipv2.compat import pystring
+import os
 
 SEXTANTE_SUPPORT = False
 try:
@@ -49,27 +50,20 @@ class QgsWps(object):
   def __init__(self, iface):
     # Save reference to the QGIS interface
     self.iface = iface  
-    self.localePath = ""
-    
-    #Initialise the translation environment
-    # RD: for now leave it as TODO
-    # userPluginPath = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+"/python/plugins/wps"
-    # systemPluginPath = QgsApplication.prefixPath()+"/share/qgis/python/plugins/wps"
-    # myLocale = pystring(QSettings().value("locale/userLocale"))[0:2]
-    # if QFileInfo(userPluginPath).exists():
-    #   self.pluginPath = userPluginPath
-    #   self.localePath = userPluginPath+"/i18n/wps_"+myLocale+".qm"
-    # elif QFileInfo(systemPluginPath).exists():
-    #   self.pluginPath = systemPluginPath
-    #   self.localePath = systemPluginPath+"/i18n/wps_"+myLocale+".qm"
-    #
-    # if QFileInfo(self.localePath).exists():
-    #   self.translator = QTranslator()
-    #   self.translator.load(self.localePath)
-    #
-    #   if qVersion() > '4.3.3':
-    #     QCoreApplication.installTranslator(self.translator)
 
+    #Initialise the translation environment
+    self.plugin_dir = os.path.dirname(__file__)
+    language = QSettings().value('locale/userLocale', QLocale().name())
+    if language and len(language) >= 2:
+        locale_path = os.path.join(
+            self.plugin_dir,
+            'i18n',
+            'wps_{}.qm'.format(language))
+
+        if os.path.exists(locale_path):
+            self.translator = QTranslator()
+            self.translator.load(locale_path)
+            QCoreApplication.installTranslator(self.translator)
 
   ##############################################################################
 
